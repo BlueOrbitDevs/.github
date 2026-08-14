@@ -110,7 +110,7 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
 
   if (!project) return null;
 
-  const activeUrl = project.demoUrl || project.url || 'https://tiranga.blueorbitdevs.org';
+  const activeUrl = project.demoUrl || project.url ;
 
   const toggleFullscreen = () => {
     if (!containerRef.current) return;

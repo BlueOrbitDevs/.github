@@ -26,9 +26,9 @@ export const PROJECTS: Project[] = [
     status: 'Live & Open Beta',
     type: 'entertainment',
     icon: 'film',
-    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80',
-    demoUrl: 'https://tiranga.blueorbitdevs.org',
-    url: 'https://tiranga.blueorbitdevs.org'
+    image: './assets/project/coupleflix.png?auto=format&fit=crop&w=1200&q=80',
+    demoUrl: 'https://coupleflix.in',
+    url: 'https://coupleflix.in'
   },
   {
     id: 'secureauth',
@@ -55,11 +55,11 @@ export const PROJECTS: Project[] = [
     status: 'Production Ready',
     type: 'security',
     icon: 'shield-check',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
-    demoUrl: 'https://webauthn.me/debugger',
-    url: 'https://webauthn.me'
+    image: './assets/project/secureauth.png?auto=format&fit=crop&w=1200&q=80',
+    demoUrl: 'https://secureauth.govt.hu',
+    url: 'https://secureauth.govt.hu'
   },
-  {
+  /*{
     id: 'phantomgram',
     title: 'PhantomGram',
     subtitle: 'High-Throughput Social Automation & Content Engine',
@@ -85,8 +85,8 @@ export const PROJECTS: Project[] = [
     type: 'social',
     icon: 'sparkles',
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
-    demoUrl: 'https://tiranga.blueorbitdevs.org',
-    url: 'https://tiranga.blueorbitdevs.org'
+    demoUrl: 'https://coupleflix.in',
+    url: 'https://coupleflix.in'
   },
   {
     id: 'notendo',
@@ -232,5 +232,5 @@ export const PROJECTS: Project[] = [
     image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
     demoUrl: 'https://webauthn.me/debugger',
     url: 'https://webauthn.me'
-  }
+  }*/
 ];
