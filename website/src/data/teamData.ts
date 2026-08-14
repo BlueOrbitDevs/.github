@@ -14,10 +14,10 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: '2',
-    name: 'Maya Lin',
+    name: 'Niharika Singh',
     role: 'Design Director & Creative Technologist',
     bio: 'Crafting fluid micro-interactions, neo-brutalist visual systems, and joyful human-centered interfaces.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&h=700&q=80',
+    image: './assets/photo-1580489944761-15a19d654956.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#00C2FF',
     github: 'https://github.com',
     linkedin: 'https://linkedin.com',
