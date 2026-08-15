@@ -23,26 +23,59 @@ export const TEAM_MEMBERS: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/niharika-singh-848809389',
     //x: 'https://x.com'
   },
-  /*{
+  {
     id: '3',
-    name: 'Julian Vance',
+    name: 'Sayan Chouni',
     role: 'Senior Full-Stack & Real-Time Engineer',
     bio: 'Obsessed with sub-50ms WebSocket latency, reactive client state machines, and edge-native computation.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=700&q=80',
+    image: './assets/photo-1507003211169-0a1dd7228f2d.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FF4FA3',
-    github: 'https://github.com',
+    github: 'https://github.com/SayanChouni',
+    //linkedin: 'https://linkedin.com',
+    //x: 'https://x.com'
+  },
+  {
+    id: '4',
+    name: 'Mk Hossein',
+    role: 'Cloud Infrastructure & Security Lead',
+    bio: 'Architecting zero-downtime serverless clouds, automated CI/CD delivery pipelines, and hardened APIs.',
+    image: './assets/photo-1500648767791-00dcc994a43e.png?auto=format&fit=crop&w=600&h=700&q=80',
+    avatarColor: '#55D88A',
+    github: 'https://github.com/mkhossainx',
+    //linkedin: 'https://linkedin.com',
+    //x: 'https://x.com'
+  },
+  /*{
+    id: '5',
+    name: 'Alex Johnson',
+    role: 'Product Manager',
+    bio: 'Driving user-centric product strategies and leading cross-functional teams to deliver innovative solutions.',
+    image: './assets/photo-1506744038956-a3ceca72a2c3.png?auto=format&fit=crop&w=600&h=700&q=80',
+    avatarColor: '#FFC107',
+    github: 'https://github.com/alexjohnson',
     linkedin: 'https://linkedin.com',
     x: 'https://x.com'
   },
   {
-    id: '4',
-    name: 'Siddharth Mehta',
-    role: 'Cloud Infrastructure & Security Lead',
-    bio: 'Architecting zero-downtime serverless clouds, automated CI/CD delivery pipelines, and hardened APIs.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&h=700&q=80',
-    avatarColor: '#55D88A',
-    github: 'https://github.com',
-    linkedin: 'https://linkedin.com',
-    x: 'https://x.com'
+    id: '6',
+    name: 'Emily Davis',
+    role: 'UX/UI Designer',
+    bio: 'Creating intuitive and visually appealing user interfaces with a focus on enhancing user experience.',
+    image: './assets/photo-1517841905240-472988babdf9.png?auto=format&fit=crop&w=600&h=700&q=80',
+    avatarColor: '#FF5722',
+    github: 'https://github.com/emilydavis',
+    linkedin: 'https://linkedin.com/in/emilydavis',
+    x: 'https://x.com/emilydavis'
   }*/
+ {
+    id: '7',
+    name: 'Taraknath Karan',
+    role: 'Tester & QA Engineer',
+    bio: 'Ensuring software quality through comprehensive testing and quality assurance processes.',
+    image: './assets/photo-1506744038956-a3ceca72a2c3.png?auto=format&fit=crop&w=600&h=700&q=80',
+    avatarColor: '#FFC107',
+    github: 'https://github.com/taraknath341',
+    linkedin: 'https://linkedin.com/in/taraknathkaran',
+    x: 'https://x.com/taraknathkaran'
+  }
 ];
