@@ -71,7 +71,7 @@ export const Projects: React.FC = () => {
   const handleCopyLink = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     setCopiedId(id);
-    navigator.clipboard.writeText(`https://blueorbitdevs.org/work?project=${id}`);
+    navigator.clipboard.writeText(`${window.location.origin}/work?project=${id}`);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
