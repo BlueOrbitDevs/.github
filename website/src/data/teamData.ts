@@ -9,7 +9,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: './assets/photo-1534528741775-53994a69daeb.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#5B4BFF',
     github: 'https://github.com/AmitDas4321',
-    linkedin: 'https://linkedin.com/AmitDas4321',
+    linkedin: 'https://www.linkedin.com/in/AmitDas4321',
     x: 'https://x.com/AmitDas4321'
   },
   {
@@ -20,7 +20,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: './assets/photo-1580489944761-15a19d654956.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#00C2FF',
     github: 'https://github.com',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/niharika-singh-848809389',
     x: 'https://x.com'
   },
   /*{
