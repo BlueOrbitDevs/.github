@@ -55,6 +55,14 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Smooth scroll helper
   const scrollToSection = useCallback((pathOrId: string, pushToHistory = true) => {
+    // Handle standalone pages
+    if (pathOrId === '/privacy-policy' || pathOrId === '/data-security-practices') {
+      setActivePath(pathOrId);
+      navigate(pathOrId);
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      return;
+    }
+
     let targetSection = SECTIONS.find((s) => s.path === pathOrId || s.id === pathOrId);
     
     if (!targetSection) {
@@ -63,6 +71,14 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       } else {
         targetSection = { id: pathOrId.replace('/', ''), path: pathOrId, name: pathOrId };
       }
+    }
+
+    // If currently on a standalone page, navigate back to home with the path
+    const isStandalonePage = location.pathname === '/privacy-policy' || location.pathname === '/data-security-practices';
+    if (isStandalonePage) {
+      setActivePath(targetSection.path);
+      navigate(targetSection.path);
+      return;
     }
 
     // Set programmatic scroll lock to prevent scroll spy jitter
@@ -107,11 +123,18 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         behavior: 'smooth',
       });
     }
-  }, []);
+  }, [location.pathname, navigate]);
 
   // Handle deep-linking on initial load / location change from router
   useEffect(() => {
     const currentPath = location.pathname;
+    
+    if (currentPath === '/privacy-policy' || currentPath === '/data-security-practices') {
+      setActivePath(currentPath);
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (currentPath === '/') {
       if (window.scrollY > 200) {
         // user scrolled down, scroll spy will handle
@@ -134,6 +157,10 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   useEffect(() => {
     const handlePopState = () => {
       const currentPath = window.location.pathname;
+      if (currentPath === '/privacy-policy' || currentPath === '/data-security-practices') {
+        setActivePath(currentPath);
+        return;
+      }
       const matched = SECTIONS.find((s) => s.path === currentPath);
       if (matched) {
         scrollToSection(matched.path, false);
@@ -157,6 +184,10 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       } else {
         setIsScrolled(false);
       }
+
+      // Do not run scroll spy on standalone pages
+      const isStandalone = window.location.pathname === '/privacy-policy' || window.location.pathname === '/data-security-practices';
+      if (isStandalone) return;
 
       if (isProgrammaticScrollRef.current) return;
 

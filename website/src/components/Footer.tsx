@@ -1,35 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { BlueOrbitLogo } from './CustomIllustrations';
-import { Github, Linkedin, Twitter, ArrowUp, ArrowRight, ArrowUpRight, Mail, Users } from 'lucide-react';
+import { Github, Linkedin, Twitter, ArrowUp, ArrowRight, ArrowUpRight, Mail } from 'lucide-react';
 import { useSectionNav } from '../context/SectionNavContext';
 
 export const Footer: React.FC = () => {
   const { scrollToSection } = useSectionNav();
-  const [visitorCount, setVisitorCount] = useState<number>(24180);
-
-  useEffect(() => {
-    try {
-      const BASE_COUNT = 24180;
-      const storedCount = localStorage.getItem('blueorbit_total_visitors');
-      let current = storedCount ? parseInt(storedCount, 10) : BASE_COUNT;
-      if (isNaN(current) || current < BASE_COUNT) {
-        current = BASE_COUNT;
-      }
-
-      // Increment if new session
-      const isNewSession = !sessionStorage.getItem('blueorbit_session_tracked');
-      if (isNewSession) {
-        current += 1;
-        localStorage.setItem('blueorbit_total_visitors', current.toString());
-        sessionStorage.setItem('blueorbit_session_tracked', 'true');
-      }
-
-      setVisitorCount(current);
-    } catch {
-      // Fallback if localStorage is restricted
-      setVisitorCount(24181);
-    }
-  }, []);
 
   const handleLinkClick = (e: React.MouseEvent, path: string) => {
     e.preventDefault();
@@ -87,6 +63,37 @@ export const Footer: React.FC = () => {
                 BlueOrbit<span className="text-[#FFD84D] ml-1">Devs</span>
               </span>
             </a>
+
+            {/* Badges row under logo */}
+            <div className="flex items-center gap-3 pt-1">
+              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
+                <img
+                  src="https://cloudstoragesecurity.com/hubfs/images/soc.svg"
+                  alt="AICPA SOC"
+                  className="h-10 sm:h-12 w-auto object-contain"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
+                <img
+                  src="https://cloudstoragesecurity.com/hs-fs/hubfs/Website/Website_On_Page_Graphics/cybersecurity%20excellence%20awards%202024.webp"
+                  alt="Cybersecurity Excellence Awards 2024"
+                  className="h-10 sm:h-12 w-auto object-contain"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
+                <img
+                  src="https://cloudstoragesecurity.com/hs-fs/hubfs/AWS%20Badges/AWS%20Badge%20Partner%20footer%20logo%2080x80.webp"
+                  alt="AWS Partner"
+                  className="h-10 sm:h-12 w-auto object-contain"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
 
             <p className="text-base sm:text-lg text-white/90 font-medium leading-relaxed max-w-md">
               Creative technology studio and product laboratory. We design, engineer, and ship digital products that move ambitious ideas forward.
@@ -172,20 +179,28 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Bottom Copyright & Total Visitor Counter */}
+        {/* Bottom Copyright & Legal Links */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-white/75">
           <p className="flex items-center gap-1.5">
             <span>© {new Date().getFullYear()} BlueOrbit Devs. Built with curiosity.</span>
           </p>
 
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-xs font-mono font-bold text-white shadow-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#55D88A] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#55D88A]"></span>
-            </span>
-            <Users className="w-3.5 h-3.5 text-[#00C2FF]" />
-            <span>Total Visitors:</span>
-            <span className="text-[#FFD84D] font-extrabold tracking-wider">{visitorCount.toLocaleString()}</span>
+          <div className="flex items-center gap-2.5 text-xs font-bold text-white/80">
+            <Link
+              to="/privacy-policy"
+              onClick={() => window.scrollTo(0, 0)}
+              className="hover:text-white hover:underline transition-colors cursor-pointer"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-white/40">|</span>
+            <Link
+              to="/data-security-practices"
+              onClick={() => window.scrollTo(0, 0)}
+              className="hover:text-white hover:underline transition-colors cursor-pointer"
+            >
+              Data Security Practices
+            </Link>
           </div>
         </div>
 

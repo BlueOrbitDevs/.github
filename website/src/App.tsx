@@ -7,6 +7,8 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { SectionNavProvider } from './context/SectionNavContext';
 
 import { HomePage } from './pages/HomePage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { DataSecurityPracticesPage } from './pages/DataSecurityPracticesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 export default function App() {
@@ -32,6 +34,8 @@ export default function App() {
               <Route path="/about" element={<HomePage />} />
               <Route path="/team" element={<HomePage />} />
               <Route path="/contact" element={<HomePage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/data-security-practices" element={<DataSecurityPracticesPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
