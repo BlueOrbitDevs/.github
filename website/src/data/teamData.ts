@@ -19,9 +19,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Crafting fluid micro-interactions, neo-brutalist visual systems, and joyful human-centered interfaces.',
     image: './assets/photo-1580489944761-15a19d654956.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#00C2FF',
-    github: 'https://github.com',
+    //github: 'https://github.com',
     linkedin: 'https://www.linkedin.com/in/niharika-singh-848809389',
-    x: 'https://x.com'
+    //x: 'https://x.com'
   },
   /*{
     id: '3',
