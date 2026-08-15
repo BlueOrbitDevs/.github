@@ -28,17 +28,13 @@
   }
 }
 
-/* Hide native cursor on desktop fine pointer devices when custom cursor is active */
+/* Hide native cursor globally on desktop fine pointer devices when custom cursor is active */
 @media (hover: hover) and (pointer: fine) {
-  body,
-  a,
-  button,
-  input,
-  select,
-  textarea,
-  [role="button"],
-  [role="link"],
-  .cursor-pointer {
+  *,
+  *::before,
+  *::after,
+  html,
+  body {
     cursor: none !important;
   }
 }
