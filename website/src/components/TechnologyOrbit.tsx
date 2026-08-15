@@ -60,7 +60,7 @@ export const TechnologyOrbit: React.FC = () => {
 
           {/* Central BlueOrbit Engineering Planet */}
           <div
-            className="z-20 w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-[#5B4BFF] via-[#7C5CFF] to-[#151326] border-4 border-white shadow-[0_0_40px_rgba(91,75,255,0.6)] flex flex-col items-center justify-center p-3 text-center cursor-pointer hover:scale-105 transition-transform"
+            className="z-20 w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-[#5B4BFF] via-[#7C5CFF] to-[#151326] border-4 border-white shadow-[0_0_40px_rgba(91,75,255,0.6)] flex flex-col items-center justify-center p-3 text-center cursor-pointer hover:scale-105 transition-transform touch-manipulation select-none active:brightness-100"
             onClick={() => setIsPaused(!isPaused)}
             title="Click to toggle orbit animation"
           >
@@ -73,9 +73,8 @@ export const TechnologyOrbit: React.FC = () => {
 
           {/* Orbiting Rotating Container Ring 1 */}
           <div
-            className={`absolute inset-0 flex items-center justify-center pointer-events-none ${
-              isPaused ? '' : 'animate-orbit-cw'
-            }`}
+            style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none animate-orbit-cw"
           >
             {ORBIT_NODES.filter((n) => n.ring === 1).map((node, index, arr) => {
               const angle = (index * (360 / arr.length)) * (Math.PI / 180);
@@ -95,7 +94,7 @@ export const TechnologyOrbit: React.FC = () => {
                     type="button"
                     onClick={() => setSelectedNode(node)}
                     onMouseEnter={() => setSelectedNode(node)}
-                    className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-black border-2 transition-all duration-300 shadow-[3px_3px_0px_#000] flex items-center gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                    className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-black border-2 transition-all duration-300 shadow-[3px_3px_0px_#000] flex items-center gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white touch-manipulation active:brightness-100 ${
                       selectedNode.name === node.name
                         ? 'bg-[#FFD84D] text-[#151326] border-white scale-110'
                         : 'bg-[#1E1B38] text-white border-[#5B4BFF]/50 hover:border-white hover:scale-105'
@@ -114,9 +113,8 @@ export const TechnologyOrbit: React.FC = () => {
 
           {/* Orbiting Rotating Container Ring 2 */}
           <div
-            className={`absolute inset-0 flex items-center justify-center pointer-events-none ${
-              isPaused ? '' : 'animate-orbit-ccw'
-            }`}
+            style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none animate-orbit-ccw"
           >
             {ORBIT_NODES.filter((n) => n.ring === 2).map((node, index, arr) => {
               const angle = (index * (360 / arr.length)) * (Math.PI / 180);
@@ -136,7 +134,7 @@ export const TechnologyOrbit: React.FC = () => {
                     type="button"
                     onClick={() => setSelectedNode(node)}
                     onMouseEnter={() => setSelectedNode(node)}
-                    className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-black border-2 transition-all duration-300 shadow-[3px_3px_0px_#000] flex items-center gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                    className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-black border-2 transition-all duration-300 shadow-[3px_3px_0px_#000] flex items-center gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white touch-manipulation active:brightness-100 ${
                       selectedNode.name === node.name
                         ? 'bg-[#00C2FF] text-[#151326] border-white scale-110'
                         : 'bg-[#1E1B38] text-white border-[#00C2FF]/50 hover:border-white hover:scale-105'
@@ -155,9 +153,8 @@ export const TechnologyOrbit: React.FC = () => {
 
           {/* Orbiting Rotating Container Ring 3 */}
           <div
-            className={`absolute inset-0 flex items-center justify-center pointer-events-none ${
-              isPaused ? '' : 'animate-orbit-cw'
-            }`}
+            style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none animate-orbit-cw"
           >
             {ORBIT_NODES.filter((n) => n.ring === 3).map((node, index, arr) => {
               const angle = (index * (360 / arr.length)) * (Math.PI / 180);
@@ -177,7 +174,7 @@ export const TechnologyOrbit: React.FC = () => {
                     type="button"
                     onClick={() => setSelectedNode(node)}
                     onMouseEnter={() => setSelectedNode(node)}
-                    className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-black border-2 transition-all duration-300 shadow-[3px_3px_0px_#000] flex items-center gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                    className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-black border-2 transition-all duration-300 shadow-[3px_3px_0px_#000] flex items-center gap-1.5 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white touch-manipulation active:brightness-100 ${
                       selectedNode.name === node.name
                         ? 'bg-[#FF4FA3] text-white border-white scale-110'
                         : 'bg-[#1E1B38] text-white border-[#FF4FA3]/50 hover:border-white hover:scale-105'
