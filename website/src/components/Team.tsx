@@ -120,57 +120,139 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
 
 export const Team: React.FC = () => {
   const totalMembers = TEAM_MEMBERS.length;
+  const bufferSize = 4;
+
+  // Cloned list for seamless infinite loop: [last bufferSize, ...all, ...first bufferSize]
+  const extendedTeamMembers = [
+    ...TEAM_MEMBERS.slice(-bufferSize),
+    ...TEAM_MEMBERS,
+    ...TEAM_MEMBERS.slice(0, bufferSize)
+  ];
+
   const [cardsPerView, setCardsPerView] = useState(4);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(bufferSize);
+  const [withTransition, setWithTransition] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isTransitioningRef = useRef(false);
 
   // Responsive items per view based on screen width
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
-        setCardsPerView(Math.min(4, totalMembers));
+        setCardsPerView(4); // Desktop: 4
       } else if (window.innerWidth >= 640) {
-        setCardsPerView(Math.min(2, totalMembers));
+        setCardsPerView(2); // Tablet: 2
       } else {
-        setCardsPerView(1);
+        setCardsPerView(1); // Mobile: 1
       }
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [totalMembers]);
+  }, []);
 
-  const maxIndex = Math.max(0, totalMembers - cardsPerView);
-  const canSlide = totalMembers > cardsPerView;
-
-  // Keep currentIndex clamped if cardsPerView changes
-  useEffect(() => {
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(maxIndex);
+  const resetAutoPlay = useCallback(() => {
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
     }
-  }, [maxIndex, currentIndex]);
+  }, []);
 
-  const handlePrev = useCallback(() => {
-    if (!canSlide) return;
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
-  }, [canSlide]);
+  const startAutoPlay = useCallback(() => {
+    resetAutoPlay();
+    if (!isPaused && !isInteracting) {
+      autoPlayTimerRef.current = setInterval(() => {
+        setWithTransition(true);
+        setCurrentIndex((prev) => prev + 1);
+      }, 3500); // Smooth automatic slide every 3.5 seconds
+    }
+  }, [isPaused, isInteracting, resetAutoPlay]);
+
+  // Set up auto-play lifecycle
+  useEffect(() => {
+    startAutoPlay();
+    return () => resetAutoPlay();
+  }, [startAutoPlay, resetAutoPlay]);
 
   const handleNext = useCallback(() => {
-    if (!canSlide) return;
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-  }, [canSlide, maxIndex]);
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev + 1);
+    startAutoPlay();
+  }, [startAutoPlay]);
+
+  const handlePrev = useCallback(() => {
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev - 1);
+    startAutoPlay();
+  }, [startAutoPlay]);
 
   const handleDotClick = useCallback((index: number) => {
-    setCurrentIndex(Math.min(index, maxIndex));
-  }, [maxIndex]);
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    setWithTransition(true);
+    setCurrentIndex(bufferSize + index);
+    startAutoPlay();
+  }, [startAutoPlay, bufferSize]);
+
+  // Handle transition end for seamless infinite looping
+  const handleTransitionEnd = () => {
+    isTransitioningRef.current = false;
+
+    // If reached or went past the cloned end, jump invisibly to real start
+    if (currentIndex >= totalMembers + bufferSize) {
+      setWithTransition(false);
+      setCurrentIndex(bufferSize + (currentIndex - (totalMembers + bufferSize)));
+    }
+    // If went before real start into cloned prefix, jump invisibly to real end
+    else if (currentIndex < bufferSize) {
+      setWithTransition(false);
+      setCurrentIndex(totalMembers + currentIndex);
+    }
+  };
+
+  // Re-enable transitions on next frame after seamless reset
+  useEffect(() => {
+    if (!withTransition) {
+      const timer = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setWithTransition(true);
+        });
+      });
+      return () => cancelAnimationFrame(timer);
+    }
+  }, [withTransition]);
+
+  // Calculate active member index (0 to totalMembers - 1)
+  const activeDotIndex = ((currentIndex - bufferSize) % totalMembers + totalMembers) % totalMembers;
 
   // Touch / Swipe Navigation support on Mobile
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    setIsInteracting(true);
     touchStartX.current = e.targetTouches[0].clientX;
     touchStartY.current = e.targetTouches[0].clientY;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartX.current || !touchStartY.current) return;
+    const currentX = e.targetTouches[0].clientX;
+    const currentY = e.targetTouches[0].clientY;
+    const diffX = touchStartX.current - currentX;
+    const diffY = touchStartY.current - currentY;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      setIsInteracting(true);
+    }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -190,6 +272,8 @@ export const Team: React.FC = () => {
 
     touchStartX.current = null;
     touchStartY.current = null;
+    setIsInteracting(false);
+    startAutoPlay();
   };
 
   // Keyboard navigation when container focused
@@ -230,58 +314,62 @@ export const Team: React.FC = () => {
             </p>
           </div>
 
-          {/* Navigation Controls (Shown when sliding is available for screen size) */}
-          {canSlide && (
-            <div className="flex items-center gap-2.5 sm:gap-3 self-start sm:self-end shrink-0 pt-2 sm:pt-0">
-              <button
-                type="button"
-                onClick={handlePrev}
-                disabled={currentIndex === 0}
-                aria-label="Previous team member"
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
-              >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
+          {/* Previous / Next Arrow Controls */}
+          <div className="flex items-center gap-2.5 sm:gap-3 self-start sm:self-end shrink-0 pt-2 sm:pt-0">
+            <button
+              type="button"
+              id="team-prev-btn"
+              onClick={handlePrev}
+              aria-label="Previous team member"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
+            >
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
 
-              <div className="text-xs sm:text-sm font-mono font-bold text-[#626078] px-1 sm:px-2 select-none min-w-[70px] text-center">
-                {cardsPerView === 1
-                  ? `${currentIndex + 1} of ${totalMembers}`
-                  : `${currentIndex + 1}-${Math.min(currentIndex + cardsPerView, totalMembers)} of ${totalMembers}`}
-              </div>
-
-              <button
-                type="button"
-                onClick={handleNext}
-                disabled={currentIndex >= maxIndex}
-                aria-label="Next team member"
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
-              >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
+            <div className="text-xs sm:text-sm font-mono font-bold text-[#626078] px-1 sm:px-2 select-none min-w-[70px] text-center">
+              {cardsPerView === 1
+                ? `${activeDotIndex + 1} of ${totalMembers}`
+                : `${activeDotIndex + 1}-${Math.min(activeDotIndex + cardsPerView, totalMembers)} of ${totalMembers}`}
             </div>
-          )}
+
+            <button
+              type="button"
+              id="team-next-btn"
+              onClick={handleNext}
+              aria-label="Next team member"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
+            >
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+          </div>
         </div>
 
         {/* Carousel Viewport Container with Smooth Sliding Track */}
         <div
+          ref={containerRef}
           tabIndex={0}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
           onKeyDown={handleKeyDown}
           onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           className="relative overflow-hidden cursor-grab active:cursor-grabbing focus:outline-none -mx-2.5 sm:-mx-3.5 px-0.5 py-2 select-none"
           aria-roledescription="carousel"
           aria-label="Team Members Carousel"
         >
           <div
-            className="flex transition-transform duration-500 ease-out"
+            onTransitionEnd={handleTransitionEnd}
+            className="flex"
             style={{
               transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+              transition: withTransition ? 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
               willChange: 'transform'
             }}
           >
-            {TEAM_MEMBERS.map((member, index) => (
+            {extendedTeamMembers.map((member, index) => (
               <div
-                key={member.id || index}
+                key={`${member.id || member.name}-${index}`}
                 className="shrink-0 px-2.5 sm:px-3.5 flex flex-col"
                 style={{ width: `${100 / cardsPerView}%` }}
               >
@@ -293,24 +381,22 @@ export const Team: React.FC = () => {
           </div>
         </div>
 
-        {/* Pagination Indicator Dots on Mobile & Tablet */}
-        {canSlide && (
-          <div className="flex items-center justify-center gap-2 mt-8 sm:mt-10">
-            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => handleDotClick(idx)}
-                aria-label={`Go to team member ${idx + 1}`}
-                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  currentIndex === idx
-                    ? 'w-8 bg-[#5B4BFF] shadow-sm'
-                    : 'w-2.5 bg-[#151326]/20 hover:bg-[#151326]/40'
-                }`}
-              />
-            ))}
-          </div>
-        )}
+        {/* Pagination Indicator Dots */}
+        <div className="flex items-center justify-center gap-2 mt-8 sm:mt-10">
+          {TEAM_MEMBERS.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => handleDotClick(idx)}
+              aria-label={`Go to team member ${idx + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                activeDotIndex === idx
+                  ? 'w-8 bg-[#5B4BFF] shadow-sm'
+                  : 'w-2.5 bg-[#151326]/20 hover:bg-[#151326]/40'
+              }`}
+            />
+          ))}
+        </div>
 
       </div>
     </section>
