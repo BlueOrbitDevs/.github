@@ -31,7 +31,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: './assets/photo-1507003211169-0a1dd7228f2d.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FF4FA3',
     github: 'https://github.com/SayanChouni',
-    //linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/sayan-chouni-b6a208321/',
     //x: 'https://x.com'
   },
   {
