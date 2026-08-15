@@ -32,7 +32,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     avatarColor: '#FF4FA3',
     github: 'https://github.com/SayanChouni',
     linkedin: 'https://www.linkedin.com/in/sayan-chouni-b6a208321/',
-    //x: 'https://x.com'
+    x: 'https://x.com/SayanChouni'
   },
   {
     id: '4',
