@@ -9,15 +9,13 @@ import {
   ExternalLink,
   RotateCcw,
   RefreshCw,
-  X,
   ShieldCheck,
   Zap,
   Info,
-  Sparkles,
-  ChevronDown,
   AlertCircle
 } from 'lucide-react';
 import { Project } from '../types';
+import { FloatingObject } from './FloatingDecorations';
 
 interface LiveDemoViewerProps {
   project: Project | null;
@@ -32,8 +30,6 @@ type Orientation = 'portrait' | 'landscape';
 export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
   project,
   onClose,
-  allProjects = [],
-  onSelectProject
 }) => {
   const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
   const [orientation, setOrientation] = useState<Orientation>('portrait');
@@ -41,7 +37,6 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
   const [hasError, setHasError] = useState<boolean>(false);
   const [iframeKey, setIframeKey] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [showProjectPicker, setShowProjectPicker] = useState<boolean>(false);
   const [loadTimeoutTriggered, setLoadTimeoutTriggered] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -65,7 +60,7 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
     };
   }, [project]);
 
-  // Loading safety timeout: if iframe takes > 8 seconds or is blocked by CSP, provide seamless fallback info
+  // Loading safety timeout
   useEffect(() => {
     if (!project) return;
     const timer = setTimeout(() => {
@@ -110,7 +105,7 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
 
   if (!project) return null;
 
-  const activeUrl = project.demoUrl || project.url ;
+  const activeUrl = project.demoUrl || project.url;
 
   const toggleFullscreen = () => {
     if (!containerRef.current) return;
@@ -160,38 +155,63 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
     <div
       ref={containerRef}
       id="live-demo-fullscreen-viewer"
-      className="fixed inset-0 z-[100] w-full max-w-[100vw] h-full bg-[#080A12] text-[#F8FAFC] flex flex-col overflow-x-hidden font-sans select-none animate-fadeIn"
+      className="fixed inset-0 z-[100] w-full max-w-[100vw] h-full bg-[#5B4BFF] text-[#17152B] flex flex-col overflow-hidden font-sans select-none animate-fadeIn"
       role="dialog"
       aria-modal="true"
       aria-label={`${project.title} Live Interactive Demo`}
     >
+      {/* Subtle Background Glows & Ambient Identity (matching Hero section) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+        <div className="absolute -top-12 -right-12 w-96 h-96 rounded-full bg-[#7C5CFF]/50 blur-3xl pointer-events-none" />
+        <div className="absolute top-1/3 -left-20 w-80 h-80 rounded-full bg-[#00C2FF]/20 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 right-1/4 w-80 h-80 rounded-full bg-[#FF4FA3]/20 blur-3xl pointer-events-none" />
+        
+        {/* Subtle Brand Watermark */}
+        <div className="absolute bottom-4 right-6 text-white/[0.04] font-black text-8xl md:text-9xl tracking-tighter leading-none pointer-events-none select-none">
+          BO
+        </div>
+
+        {/* Ambient Ring Accents */}
+        <div className="absolute top-24 left-12 w-32 h-32 border-2 border-[#00C2FF]/15 rounded-full pointer-events-none" />
+        <div className="absolute bottom-16 right-24 w-44 h-44 border border-[#FF4FA3]/15 rounded-full pointer-events-none" />
+
+        {/* Light Floating Studio Elements */}
+        <FloatingObject type="code-tag" top="12%" left="2%" color="#00C2FF" animation="slow" />
+        <FloatingObject type="sparkle" top="20%" right="4%" color="#FFD84D" animation="medium" />
+        <FloatingObject type="curly" bottom="18%" left="3%" color="#FFD84D" animation="slow" />
+        <FloatingObject type="plus" bottom="22%" right="3%" color="#FF4FA3" animation="medium" />
+      </div>
+
       {/* ========================================================================= */}
-      {/* 1. TOP CONTROL BAR (Mobile-Optimized & Desktop-Compliant Header) */}
+      {/* 1. TOP CONTROL BAR (BlueOrbit Devs Signature Studio Header) */}
       {/* ========================================================================= */}
-      <header className="h-14 sm:h-16 md:h-18 bg-[#12162A]/95 backdrop-blur-md border-b border-[rgba(148,163,184,0.14)] px-2.5 sm:px-4 md:px-6 flex items-center justify-between shrink-0 z-30 shadow-md relative w-full max-w-full overflow-hidden">
+      <header className="h-14 sm:h-16 md:h-18 bg-[#17152B]/90 backdrop-blur-md border-b-2 border-[#151326] px-2.5 sm:px-4 md:px-6 flex items-center justify-between shrink-0 z-30 shadow-[0_4px_20px_rgba(0,0,0,0.25)] relative w-full max-w-full overflow-hidden text-white">
         
         {/* LEFT: Back Button + Project Name */}
         <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 md:flex-initial pr-2 md:pr-0">
-          {/* Back Button (44px touch target, compact pill on mobile) */}
+          {/* Back Button */}
           <button
             type="button"
             id="live-demo-back-btn"
             onClick={onClose}
             aria-label="Back to Projects"
-            className="flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 min-h-[44px] min-w-[44px] rounded-full bg-[#181D33] hover:bg-[#202742] active:scale-95 text-[#E2E8F0] hover:text-white text-xs font-semibold border border-[rgba(148,163,184,0.18)] hover:border-[rgba(148,163,184,0.32)] transition-all cursor-pointer shadow-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#38BDF8] shrink-0"
+            className="flex items-center justify-center gap-1.5 px-3 sm:px-4 py-1.5 min-h-[44px] min-w-[44px] rounded-full bg-white hover:bg-[#00C2FF] active:scale-95 text-[#17152B] hover:text-[#17152B] text-xs sm:text-sm font-extrabold border-2 border-[#151326] shadow-[2px_2px_0px_#151326] transition-all cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD84D] shrink-0"
           >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform text-[#38BDF8] shrink-0" />
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:-translate-x-0.5 transition-transform text-[#17152B] shrink-0" />
             <span className="hidden min-[360px]:inline">Back</span>
           </button>
 
           {/* Vertical Divider (desktop only) */}
-          <div className="h-5 w-px bg-[rgba(148,163,184,0.16)] hidden sm:block shrink-0" />
+          <div className="h-6 w-px bg-white/20 hidden sm:block shrink-0" />
 
-          {/* Project Title (Clean, vertically centered, perfectly scaled) */}
-          <div className="min-w-0 flex-1 md:flex-initial">
-            <h3 className="font-bold text-xs min-[360px]:text-sm sm:text-base tracking-tight truncate text-[#F8FAFC] leading-none">
+          {/* Project Title with Studio Styling */}
+          <div className="min-w-0 flex-1 md:flex-initial flex items-center gap-2">
+            <h3 className="font-black text-xs min-[360px]:text-sm sm:text-base tracking-tight truncate text-white leading-none">
               {project.title}
             </h3>
+            <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-[#00C2FF]/20 text-[#00C2FF] text-[10px] font-mono font-extrabold border border-[#00C2FF]/40 shrink-0">
+              LIVE
+            </span>
           </div>
         </div>
 
@@ -200,17 +220,17 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
         {/* ========================================================================= */}
         <div className="hidden md:flex items-center gap-2">
           {/* Segmented Device Switcher */}
-          <div className="flex items-center bg-[#0D1020] p-1 rounded-full border border-[rgba(148,163,184,0.16)] shadow-inner">
+          <div className="flex items-center bg-[#100E20] p-1 rounded-full border-2 border-[#151326] shadow-[2px_2px_0px_#151326]">
             {/* Desktop Option */}
             <button
               type="button"
               id="live-demo-desktop-btn"
               onClick={() => setDeviceMode('desktop')}
               title="Desktop View (100% Width) - Press 1"
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
                 deviceMode === 'desktop'
-                  ? 'bg-[#6366F1] hover:bg-[#818CF8] text-white shadow-sm'
-                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#202640]'
+                  ? 'bg-[#00C2FF] text-[#17152B] shadow-sm'
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
               }`}
             >
               <Monitor className="w-3.5 h-3.5" />
@@ -223,10 +243,10 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
               id="live-demo-tablet-btn"
               onClick={() => setDeviceMode('tablet')}
               title="Tablet View (768px iPad) - Press 2"
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
                 deviceMode === 'tablet'
-                  ? 'bg-[#6366F1] hover:bg-[#818CF8] text-white shadow-sm'
-                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#202640]'
+                  ? 'bg-[#00C2FF] text-[#17152B] shadow-sm'
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
               }`}
             >
               <Tablet className="w-3.5 h-3.5" />
@@ -239,10 +259,10 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
               id="live-demo-mobile-btn"
               onClick={() => setDeviceMode('mobile')}
               title="Mobile View (390px iPhone) - Press 3"
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
                 deviceMode === 'mobile'
-                  ? 'bg-[#6366F1] hover:bg-[#818CF8] text-white shadow-sm'
-                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#202640]'
+                  ? 'bg-[#00C2FF] text-[#17152B] shadow-sm'
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" />
@@ -258,13 +278,13 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
               onClick={toggleOrientation}
               title={`Rotate to ${orientation === 'portrait' ? 'Landscape' : 'Portrait'}`}
               aria-label="Rotate device orientation"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[#191E35] hover:bg-[#202640] text-[#CBD5E1] hover:text-[#F8FAFC] border border-[rgba(148,163,184,0.16)] hover:border-[rgba(148,163,184,0.3)] transition-all cursor-pointer group"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border-2 border-[#151326] shadow-[2px_2px_0px_#151326] transition-all cursor-pointer group"
             >
               <div className="relative flex items-center justify-center">
-                <Smartphone className={`w-4 h-4 text-[#38BDF8] transition-transform duration-300 ${orientation === 'landscape' ? 'rotate-90 text-[#22C55E]' : ''}`} />
+                <Smartphone className={`w-4 h-4 text-[#00C2FF] transition-transform duration-300 ${orientation === 'landscape' ? 'rotate-90 text-[#FFD84D]' : ''}`} />
                 <RotateCcw className="w-2.5 h-2.5 text-white absolute -top-1 -right-1 group-hover:-rotate-45 transition-transform" />
               </div>
-              <span className="text-xs font-bold hidden lg:inline">Rotate</span>
+              <span className="text-xs font-extrabold hidden lg:inline">Rotate</span>
             </button>
           )}
 
@@ -274,14 +294,14 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
             id="live-demo-refresh-btn"
             onClick={handleRefresh}
             title="Reload Demo Preview"
-            className="p-2 rounded-full bg-[#191E35] hover:bg-[#202640] text-[#CBD5E1] border border-[rgba(148,163,184,0.16)] hover:border-[rgba(148,163,184,0.3)] transition-all cursor-pointer"
+            className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white border-2 border-[#151326] shadow-[2px_2px_0px_#151326] transition-all cursor-pointer"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#38BDF8]' : 'text-[#94A3B8]'}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#00C2FF]' : 'text-white/80'}`} />
           </button>
         </div>
 
         {/* ========================================================================= */}
-        {/* RIGHT: Open Live Site */}
+        {/* RIGHT: Fullscreen + Coral Open Live Site CTA */}
         {/* ========================================================================= */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Fullscreen Button (hidden on mobile) */}
@@ -290,71 +310,71 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
             id="live-demo-fullscreen-btn"
             onClick={toggleFullscreen}
             title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen (F)'}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-full bg-[#191E35] hover:bg-[#202640] text-[#CBD5E1] hover:text-[#F8FAFC] font-bold text-xs border border-[rgba(148,163,184,0.16)] transition-all cursor-pointer shrink-0"
+            className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] rounded-full bg-white/10 hover:bg-white/20 text-white font-extrabold text-xs border-2 border-[#151326] shadow-[2px_2px_0px_#151326] transition-all cursor-pointer shrink-0"
           >
             {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
             <span className="hidden lg:inline">{isFullscreen ? 'Exit Full' : 'Fullscreen'}</span>
           </button>
 
-          {/* Open Live Site Button (Compact, polished pill with 44px min touch target) */}
+          {/* Open Live Site Button (Vibrant Coral Studio CTA with 44px min touch target) */}
           <a
             href={activeUrl}
             target="_blank"
             rel="noopener noreferrer"
             id="live-demo-open-external-btn"
-            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2.5 min-[360px]:px-3.5 sm:px-4 py-1.5 min-h-[44px] rounded-full bg-[#38BDF8] hover:bg-[#7dd3fc] active:scale-95 text-[#06111F] font-bold text-xs sm:text-xs shadow-sm hover:shadow-cyan-500/25 transition-all cursor-pointer shrink-0"
+            className="flex items-center justify-center gap-1.5 px-3 min-[360px]:px-4 sm:px-5 py-2 min-h-[44px] rounded-full bg-[#FF7043] hover:bg-[#FF855D] hover:scale-105 active:scale-95 text-white font-extrabold text-xs sm:text-sm border-2 border-[#151326] shadow-[2px_2px_0px_#151326] transition-all cursor-pointer shrink-0"
           >
-            <span className="whitespace-nowrap hidden min-[360px]:inline font-bold">Open Site</span>
-            <span className="whitespace-nowrap min-[360px]:hidden font-bold">Open</span>
-            <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-nowrap hidden min-[360px]:inline">Open Site</span>
+            <span className="whitespace-nowrap min-[360px]:hidden">Open</span>
+            <ExternalLink className="w-3.5 h-3.5 shrink-0 text-white" />
           </a>
         </div>
       </header>
 
       {/* ========================================================================= */}
-      {/* MAIN CANVAS / IFRAME DISPLAY AREA (100% Full-Width Mobile First) */}
+      {/* MAIN CANVAS / IFRAME DISPLAY AREA (Surrounded by BlueOrbit Studio atmosphere) */}
       {/* ========================================================================= */}
-      <div className="flex-grow w-full max-w-full overflow-hidden flex items-center justify-center p-0 md:p-6 lg:p-8 bg-[#0D1020] relative [background-image:radial-gradient(rgba(148,163,184,0.08)_1px,transparent_1px)] [background-size:24px_24px]">
+      <div className="flex-grow w-full max-w-full overflow-hidden flex items-center justify-center p-0 md:p-6 lg:p-8 relative z-10">
         
-        {/* Loading Indicator Overlay */}
+        {/* Loading Indicator Overlay (Vibrant Creative Studio theme) */}
         {isLoading && (
-          <div className="absolute inset-0 bg-[#080A12]/90 backdrop-blur-md z-20 flex flex-col items-center justify-center p-4 sm:p-6 text-center animate-fadeIn w-full h-full">
+          <div className="absolute inset-0 bg-[#17152B]/85 backdrop-blur-md z-20 flex flex-col items-center justify-center p-4 sm:p-6 text-center animate-fadeIn w-full h-full text-white">
             {/* Animated Orbit Spinner */}
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border-4 border-[#6366F1]/25 border-t-[#38BDF8] animate-spin" />
-              <div className="absolute inset-2 rounded-full border-4 border-[#6366F1]/20 border-b-[#6366F1] animate-spin [animation-direction:reverse] [animation-duration:1.5s]" />
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#6366F1] shadow-[0_0_20px_rgba(99,102,241,0.4)] flex items-center justify-center text-white">
-                <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+              <div className="absolute inset-0 rounded-full border-4 border-white/20 border-t-[#00C2FF] animate-spin" />
+              <div className="absolute inset-2 rounded-full border-4 border-white/10 border-b-[#FF4FA3] animate-spin [animation-direction:reverse] [animation-duration:1.5s]" />
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#00C2FF] shadow-[0_0_20px_rgba(0,194,255,0.5)] flex items-center justify-center text-[#17152B]">
+                <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
               </div>
             </div>
 
-            <h4 className="text-lg sm:text-2xl font-bold text-[#F8FAFC] mb-1.5 sm:mb-2 tracking-tight">
-              Loading Live Environment
+            <h4 className="text-lg sm:text-2xl font-black text-white mb-1.5 sm:mb-2 tracking-tight">
+              Loading Live Preview
             </h4>
-            <p className="text-[#94A3B8] text-xs sm:text-sm max-w-md font-normal mb-4 px-2">
-              Initializing {project.title} live runtime sandbox. Please wait...
+            <p className="text-white/80 text-xs sm:text-sm max-w-md font-medium mb-4 px-2">
+              Connecting to {project.title} live environment...
             </p>
 
             {/* Quick Progress Bar */}
-            <div className="w-48 sm:w-56 h-1.5 bg-[#191E35] rounded-full overflow-hidden mb-4 border border-[rgba(148,163,184,0.16)]">
-              <div className="w-full h-full bg-gradient-to-r from-[#6366F1] via-[#38BDF8] to-[#22C55E] animate-pulse" />
+            <div className="w-48 sm:w-56 h-2 bg-white/20 rounded-full overflow-hidden mb-4 border border-white/30">
+              <div className="w-full h-full bg-gradient-to-r from-[#00C2FF] via-[#FFD84D] to-[#FF7043] animate-pulse" />
             </div>
 
             {/* Fallback option if site takes time */}
             {loadTimeoutTriggered && (
-              <div className="mt-2 p-3 sm:p-4 rounded-2xl bg-[#14182B] border border-[rgba(148,163,184,0.16)] max-w-xs sm:max-w-sm animate-fadeIn shadow-xl">
-                <div className="flex items-center gap-2 text-xs text-[#38BDF8] font-bold mb-1.5">
+              <div className="mt-2 p-4 rounded-2xl bg-[#151326] border-2 border-[#151326] shadow-[4px_4px_0px_#151326] max-w-xs sm:max-w-sm animate-fadeIn">
+                <div className="flex items-center gap-2 text-xs text-[#00C2FF] font-extrabold mb-1.5">
                   <Info className="w-4 h-4 shrink-0" />
-                  <span>Taking longer than expected?</span>
+                  <span>Taking a bit longer?</span>
                 </div>
-                <p className="text-[11px] sm:text-xs text-[#94A3B8] mb-3 leading-relaxed">
-                  Some production domains restrict iframe embedding for security. You can launch it directly in a dedicated tab.
+                <p className="text-[11px] sm:text-xs text-white/80 mb-3 leading-relaxed">
+                  Some production sites restrict embedded iframes. You can open the project directly in a separate browser tab.
                 </p>
                 <a
                   href={activeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 min-h-[40px] rounded-full bg-[#38BDF8] hover:bg-[#7dd3fc] text-[#06111F] text-xs font-bold transition-all shadow-md w-full"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 min-h-[40px] rounded-full bg-[#FF7043] hover:bg-[#FF855D] text-white text-xs font-extrabold transition-all shadow-md w-full border border-white/20"
                 >
                   <span>Launch in New Tab</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -365,15 +385,15 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
         )}
 
         {/* ========================================================================= */}
-        {/* DEVICE FRAME WRAPPER (Edge-to-Edge 100% on Mobile, Simulated Frames on Desktop) */}
+        {/* DEVICE FRAME WRAPPER (BlueOrbit Devs Browser Frame Design) */}
         {/* ========================================================================= */}
         <div
           className={`relative transition-all duration-300 flex flex-col items-center justify-center w-full h-full max-w-full ${
             deviceMode === 'desktop'
-              ? 'md:rounded-2xl md:border md:border-[rgba(148,163,184,0.16)] md:shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_30px_rgba(99,102,241,0.06)] overflow-hidden bg-[#14182B]'
+              ? 'md:rounded-3xl md:border-3 md:border-[#151326] md:shadow-[10px_10px_0px_#151326] overflow-hidden bg-[#17152B]'
               : deviceMode === 'tablet'
-              ? 'md:border-[12px] md:border-[#14182B] md:rounded-[36px] md:shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_0_1px_rgba(148,163,184,0.16),0_0_30px_rgba(56,189,248,0.06)] bg-[#14182B] overflow-hidden md:my-auto'
-              : 'md:border-[14px] md:border-[#14182B] md:rounded-[44px] md:shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_0_1px_rgba(148,163,184,0.16),0_0_30px_rgba(56,189,248,0.06)] bg-[#14182B] overflow-hidden md:my-auto'
+              ? 'md:border-[12px] md:border-[#151326] md:rounded-[36px] md:shadow-[10px_10px_0px_#151326] bg-[#17152B] overflow-hidden md:my-auto'
+              : 'md:border-[14px] md:border-[#151326] md:rounded-[44px] md:shadow-[10px_10px_0px_#151326] bg-[#17152B] overflow-hidden md:my-auto'
           }`}
           style={{
             width: typeof window !== 'undefined' && window.innerWidth < 768 ? '100%' : (deviceMode === 'desktop' ? '100%' : dims.width),
@@ -384,11 +404,11 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
         >
           {/* Top Notch / Camera Bar for Tablet and Mobile (Rendered on MD+ desktop simulation only) */}
           {deviceMode === 'mobile' && orientation === 'portrait' && (
-            <div className="hidden md:flex w-full h-6 bg-[#14182B] items-center justify-between px-6 shrink-0 relative z-10 border-b border-[rgba(148,163,184,0.16)]">
-              <span className="text-[10px] font-mono text-[#94A3B8] font-bold">9:41</span>
+            <div className="hidden md:flex w-full h-6 bg-[#17152B] items-center justify-between px-6 shrink-0 relative z-10 border-b border-white/10">
+              <span className="text-[10px] font-mono text-white/70 font-bold">9:41</span>
               {/* Dynamic Island pill */}
-              <div className="w-20 h-3.5 bg-[#080A12] rounded-full border border-[rgba(148,163,184,0.16)] mx-auto" />
-              <div className="flex items-center gap-1 text-[10px] text-[#94A3B8]">
+              <div className="w-20 h-3.5 bg-[#0F0D1C] rounded-full border border-white/15 mx-auto" />
+              <div className="flex items-center gap-1 text-[10px] text-white/70">
                 <span>5G</span>
                 <span>100%</span>
               </div>
@@ -396,35 +416,35 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
           )}
 
           {deviceMode === 'tablet' && (
-            <div className="hidden md:flex w-full h-4 bg-[#14182B] items-center justify-center shrink-0 border-b border-[rgba(148,163,184,0.16)]">
-              <div className="w-2 h-2 rounded-full bg-[#080A12] border border-[rgba(148,163,184,0.16)]" />
+            <div className="hidden md:flex w-full h-4 bg-[#17152B] items-center justify-center shrink-0 border-b border-white/10">
+              <div className="w-2 h-2 rounded-full bg-[#0F0D1C] border border-white/15" />
             </div>
           )}
 
           {/* Desktop Simulated Browser Chrome header (Rendered on MD+ desktop simulation only) */}
           {deviceMode === 'desktop' && (
-            <div className="hidden md:flex w-full h-9 bg-[#14182B] border-b border-[rgba(148,163,184,0.16)] px-4 items-center gap-3 shrink-0">
-              {/* Fake window buttons */}
+            <div className="hidden md:flex w-full h-10 bg-[#17152B] border-b-2 border-[#151326] px-4 items-center gap-3 shrink-0">
+              {/* Fake window colored dots */}
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]/80" />
+                <span className="w-3 h-3 rounded-full bg-[#FF4FA3] border border-[#151326]/40" />
+                <span className="w-3 h-3 rounded-full bg-[#FFD84D] border border-[#151326]/40" />
+                <span className="w-3 h-3 rounded-full bg-[#55D88A] border border-[#151326]/40" />
               </div>
 
-              {/* Fake address bar */}
-              <div className="flex-grow max-w-md mx-auto bg-[#0D1020] h-6 rounded-md border border-[rgba(148,163,184,0.16)] px-3 flex items-center gap-2 text-[11px] font-mono text-[#CBD5E1]">
-                <ShieldCheck className="w-3 h-3 text-[#22C55E]" />
+              {/* Fake URL bar styled with BlueOrbit design */}
+              <div className="flex-grow max-w-md mx-auto bg-white/10 h-7 rounded-full border border-white/20 px-3.5 flex items-center gap-2 text-[11px] font-mono text-white/90">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#55D88A] shrink-0" />
                 <span className="truncate">{activeUrl}</span>
               </div>
 
-              <div className="text-[10px] font-mono text-[#64748B] hidden sm:block">
-                Secure Sandbox 60fps
+              <div className="text-[10px] font-mono font-bold text-[#00C2FF] hidden sm:block">
+                60fps Live Sandbox
               </div>
             </div>
           )}
 
           {/* ========================================================================= */}
-          {/* THE IFRAME ELEMENT */}
+          {/* THE IFRAME ELEMENT (Untouched) */}
           {/* ========================================================================= */}
           <div className="w-full h-full relative flex-grow overflow-hidden bg-white">
             <iframe
@@ -446,20 +466,20 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
 
             {/* Fallback Banner if Embedding is Blocked */}
             {hasError && (
-              <div className="absolute inset-0 bg-[#14182B] flex flex-col items-center justify-center p-6 text-center text-[#F8FAFC]">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center mb-4">
-                  <AlertCircle className="w-7 h-7 sm:w-8 sm:h-8 text-rose-400" />
+              <div className="absolute inset-0 bg-[#17152B] flex flex-col items-center justify-center p-6 text-center text-white">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-[#FF4FA3]/20 border-2 border-[#FF4FA3] flex items-center justify-center mb-4 shadow-[4px_4px_0px_#151326]">
+                  <AlertCircle className="w-7 h-7 sm:w-8 sm:h-8 text-[#FF4FA3]" />
                 </div>
-                <h4 className="text-xl sm:text-2xl font-bold mb-2">Browser Security Notice</h4>
-                <p className="text-[#94A3B8] text-xs sm:text-sm max-w-md mb-6 leading-relaxed">
-                  This production host has enabled <code className="bg-[#191E35] px-2 py-0.5 rounded text-[#38BDF8]">X-Frame-Options: SAMEORIGIN</code> to protect user authentication.
+                <h4 className="text-xl sm:text-2xl font-black mb-2">Browser Security Notice</h4>
+                <p className="text-white/80 text-xs sm:text-sm max-w-md mb-6 leading-relaxed">
+                  This production host has enabled <code className="bg-white/10 px-2 py-0.5 rounded text-[#00C2FF]">X-Frame-Options: SAMEORIGIN</code> to protect authentication tokens.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   <a
                     href={activeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-[#38BDF8] hover:bg-[#7dd3fc] text-[#06111F] font-bold text-xs sm:text-sm shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-[#FF7043] hover:bg-[#FF855D] text-white font-extrabold text-xs sm:text-sm border-2 border-[#151326] shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center gap-2"
                   >
                     <span>Launch in Separate Tab</span>
                     <ExternalLink className="w-4 h-4" />
@@ -467,7 +487,7 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
                   <button
                     type="button"
                     onClick={handleRefresh}
-                    className="px-4 sm:px-5 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-[#191E35] hover:bg-[#202640] text-[#F8FAFC] font-bold text-xs sm:text-sm border border-[rgba(148,163,184,0.16)] transition-all cursor-pointer flex items-center justify-center"
+                    className="px-4 sm:px-5 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-white/10 hover:bg-white/20 text-white font-extrabold text-xs sm:text-sm border-2 border-[#151326] shadow-[3px_3px_0px_#151326] transition-all cursor-pointer flex items-center justify-center"
                   >
                     Retry Connection
                   </button>
@@ -478,8 +498,8 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
 
           {/* Bottom Phone Home Indicator Bar (Rendered on MD+ desktop simulation only) */}
           {deviceMode === 'mobile' && orientation === 'portrait' && (
-            <div className="hidden md:flex w-full h-5 bg-[#14182B] items-center justify-center shrink-0 border-t border-[rgba(148,163,184,0.16)]">
-              <div className="w-28 h-1 bg-[rgba(148,163,184,0.3)] rounded-full" />
+            <div className="hidden md:flex w-full h-5 bg-[#17152B] items-center justify-center shrink-0 border-t border-white/10">
+              <div className="w-28 h-1 bg-white/30 rounded-full" />
             </div>
           )}
         </div>
@@ -487,3 +507,4 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
     </div>
   );
 };
+
