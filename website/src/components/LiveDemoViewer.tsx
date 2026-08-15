@@ -166,86 +166,32 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
       aria-label={`${project.title} Live Interactive Demo`}
     >
       {/* ========================================================================= */}
-      {/* 1. TOP CONTROL BAR (Responsive Header with Min 44px Touch Targets) */}
+      {/* 1. TOP CONTROL BAR (Mobile-Optimized & Desktop-Compliant Header) */}
       {/* ========================================================================= */}
-      <header className="min-h-[56px] sm:min-h-[64px] md:h-18 bg-[#14182B] border-b border-[rgba(148,163,184,0.16)] px-2.5 sm:px-4 md:px-6 py-2 flex items-center justify-between shrink-0 z-30 shadow-lg relative w-full max-w-full overflow-hidden">
+      <header className="min-h-[52px] sm:min-h-[60px] md:h-18 bg-[#14182B] border-b border-[rgba(148,163,184,0.16)] px-2 sm:px-4 md:px-6 py-1.5 sm:py-2 flex items-center justify-between shrink-0 z-30 shadow-lg relative w-full max-w-full overflow-hidden">
         
         {/* LEFT: Back Button + Project Name + LIVE Badge */}
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
           {/* Back to Projects Button (Min 44x44px touch target) */}
           <button
             type="button"
             id="live-demo-back-btn"
             onClick={onClose}
             aria-label="Back to Projects"
-            className="flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 min-h-[44px] min-w-[44px] rounded-full bg-[#191E35] hover:bg-[#202640] text-[#F8FAFC] font-bold text-xs sm:text-sm border border-[rgba(148,163,184,0.16)] hover:border-[rgba(148,163,184,0.3)] transition-all cursor-pointer shadow-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#38BDF8] shrink-0"
+            className="flex items-center justify-center gap-1 px-2.5 sm:px-3.5 py-1.5 min-h-[44px] min-w-[44px] rounded-full bg-[#191E35] hover:bg-[#202640] text-[#F8FAFC] font-bold text-xs sm:text-sm border border-[rgba(148,163,184,0.16)] hover:border-[rgba(148,163,184,0.3)] transition-all cursor-pointer shadow-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#38BDF8] shrink-0"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform text-[#38BDF8]" />
-            <span className="hidden sm:inline">Back</span>
+            <span className="hidden min-[360px]:inline sm:inline">Back</span>
           </button>
 
           {/* Vertical Divider */}
           <div className="h-5 w-px bg-[rgba(148,163,184,0.16)] hidden sm:block" />
 
-          {/* Brand Logo & Project Title Selector */}
-          <div className="relative min-w-0">
-            <button
-              type="button"
-              onClick={() => setShowProjectPicker(!showProjectPicker)}
-              aria-label="Switch project demo"
-              className="flex items-center gap-2 px-2 py-1.5 min-h-[44px] rounded-xl hover:bg-[#191E35] border border-transparent hover:border-[rgba(148,163,184,0.16)] transition-all text-left max-w-[130px] min-[375px]:max-w-[160px] sm:max-w-[240px] md:max-w-none"
-            >
-              <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#6366F1]/20 border border-[#6366F1]/50 p-0.5 shrink-0 flex items-center justify-center overflow-hidden">
-                <img
-                  src="./assets/brand-logo.png"
-                  alt="BlueOrbit Logo"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              <div className="min-w-0 truncate">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-bold text-xs sm:text-sm md:text-base tracking-tight truncate text-[#F8FAFC]">
-                    {project.title}
-                  </span>
-                  <span className="hidden lg:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#22C55E]/15 text-[#22C55E] text-[10px] font-mono font-bold border border-[#22C55E]/30">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
-                    LIVE
-                  </span>
-                  <ChevronDown className="w-3.5 h-3.5 text-[#94A3B8] shrink-0" />
-                </div>
-              </div>
-            </button>
-
-            {/* Quick Switch Dropdown */}
-            {showProjectPicker && (
-              <div className="absolute top-full left-0 mt-2 w-60 sm:w-64 bg-[#191E35] border border-[rgba(148,163,184,0.2)] rounded-2xl p-2 shadow-2xl z-50 animate-fadeIn">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] px-3 py-1.5">
-                  Switch Live Demo
-                </div>
-                <div className="space-y-1 max-h-60 overflow-y-auto">
-                  {allProjects.map((p) => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => {
-                        if (onSelectProject) onSelectProject(p);
-                        setShowProjectPicker(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 min-h-[40px] rounded-xl text-xs font-bold transition-all flex items-center justify-between ${
-                        p.id === project.id
-                          ? 'bg-[#6366F1] text-white shadow-md'
-                          : 'text-[#CBD5E1] hover:bg-[#202640] hover:text-[#F8FAFC]'
-                      }`}
-                    >
-                      <span className="truncate">{p.title}</span>
-                      <span className="text-[10px] opacity-70 font-mono shrink-0 ml-2">{p.category[0]}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+          {/* Project Title */}
+          <div className="min-w-0">
+            <h3 className="font-bold text-xs sm:text-sm md:text-base tracking-tight truncate text-[#F8FAFC]">
+              {project.title}
+            </h3>
           </div>
         </div>
 
@@ -304,16 +250,21 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
             </button>
           </div>
 
-          {/* Orientation Toggle (for Tablet and Mobile) */}
+          {/* Orientation Toggle / Phone Rotate Button */}
           {deviceMode !== 'desktop' && (
             <button
               type="button"
               id="live-demo-rotate-btn"
               onClick={toggleOrientation}
               title={`Rotate to ${orientation === 'portrait' ? 'Landscape' : 'Portrait'}`}
-              className="p-2 rounded-full bg-[#191E35] hover:bg-[#202640] text-[#CBD5E1] border border-[rgba(148,163,184,0.16)] hover:border-[rgba(148,163,184,0.3)] transition-all cursor-pointer"
+              aria-label="Rotate device orientation"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[#191E35] hover:bg-[#202640] text-[#CBD5E1] hover:text-[#F8FAFC] border border-[rgba(148,163,184,0.16)] hover:border-[rgba(148,163,184,0.3)] transition-all cursor-pointer group"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-[#38BDF8]" />
+              <div className="relative flex items-center justify-center">
+                <Smartphone className={`w-4 h-4 text-[#38BDF8] transition-transform duration-300 ${orientation === 'landscape' ? 'rotate-90 text-[#22C55E]' : ''}`} />
+                <RotateCcw className="w-2.5 h-2.5 text-white absolute -top-1 -right-1 group-hover:-rotate-45 transition-transform" />
+              </div>
+              <span className="text-xs font-bold hidden lg:inline">Rotate</span>
             </button>
           )}
 
@@ -330,21 +281,10 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
         </div>
 
         {/* ========================================================================= */}
-        {/* RIGHT: Open Live Site + Close */}
+        {/* RIGHT: Open Live Site */}
         {/* ========================================================================= */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          {/* Reload Button on Mobile */}
-          <button
-            type="button"
-            onClick={handleRefresh}
-            title="Reload Demo Preview"
-            aria-label="Reload demo"
-            className="md:hidden w-9 h-9 min-h-[44px] min-w-[44px] rounded-full bg-[#191E35] hover:bg-[#202640] text-[#CBD5E1] border border-[rgba(148,163,184,0.16)] flex items-center justify-center transition-all cursor-pointer shrink-0"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#38BDF8]' : 'text-[#94A3B8]'}`} />
-          </button>
-
-          {/* Fullscreen Button (hidden on small mobile) */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Fullscreen Button (hidden on mobile) */}
           <button
             type="button"
             id="live-demo-fullscreen-btn"
@@ -356,7 +296,7 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
             <span className="hidden lg:inline">{isFullscreen ? 'Exit Full' : 'Fullscreen'}</span>
           </button>
 
-          {/* Open Live Site Button (Responsive CTA) */}
+          {/* Open Live Site Button (Compact, accessible CTA with 44px min height) */}
           <a
             href={activeUrl}
             target="_blank"
@@ -364,42 +304,15 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
             id="live-demo-open-external-btn"
             className="flex items-center justify-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 min-h-[44px] rounded-full bg-[#38BDF8] hover:bg-[#7dd3fc] text-[#06111F] font-extrabold text-xs sm:text-sm shadow-md hover:shadow-cyan-500/20 active:scale-95 transition-all cursor-pointer shrink-0"
           >
-            <span className="whitespace-nowrap">Open Site</span>
+            <span className="whitespace-nowrap hidden min-[360px]:inline">Open Site</span>
+            <span className="whitespace-nowrap min-[360px]:hidden">Open</span>
             <ExternalLink className="w-3.5 h-3.5 shrink-0" />
           </a>
-
-          {/* Close Button (Min 44x44px touch target) */}
-          <button
-            type="button"
-            id="live-demo-close-btn"
-            onClick={onClose}
-            aria-label="Close Preview"
-            title="Close Preview (Esc)"
-            className="w-9 h-9 min-w-[44px] min-h-[44px] rounded-full bg-[#191E35] hover:bg-rose-500/20 hover:text-rose-400 hover:border-rose-500/30 text-[#94A3B8] border border-[rgba(148,163,184,0.16)] flex items-center justify-center transition-all cursor-pointer shrink-0"
-          >
-            <X className="w-4 h-4" />
-          </button>
         </div>
       </header>
 
       {/* ========================================================================= */}
-      {/* 2. SUB-INFO BAR / URL BROWSER SIMULATOR */}
-      {/* ========================================================================= */}
-      <div className="h-7 sm:h-8 bg-[#11152A] border-b border-[rgba(148,163,184,0.16)] px-3 sm:px-4 flex items-center justify-between text-[10px] sm:text-[11px] text-[#94A3B8] shrink-0 font-mono w-full max-w-full overflow-hidden">
-        <div className="flex items-center gap-1.5 truncate max-w-[80%] sm:max-w-[50%]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] shrink-0" />
-          <span className="text-[#64748B] shrink-0">URL:</span>
-          <span className="text-[#38BDF8] truncate font-bold">{activeUrl}</span>
-        </div>
-
-        <div className="hidden sm:flex items-center gap-4 text-[#94A3B8]">
-          <span>Viewport: <strong className="text-[#F8FAFC]">{dims.label}</strong></span>
-          <span className="hidden md:inline text-[#64748B]">Shortcuts: [1] Desktop [2] Tablet [3] Mobile [Esc] Exit</span>
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* 3. MAIN CANVAS / IFRAME DISPLAY AREA (100% Full-Width Mobile First) */}
+      {/* MAIN CANVAS / IFRAME DISPLAY AREA (100% Full-Width Mobile First) */}
       {/* ========================================================================= */}
       <div className="flex-grow w-full max-w-full overflow-hidden flex items-center justify-center p-0 md:p-6 lg:p-8 bg-[#0D1020] relative [background-image:radial-gradient(rgba(148,163,184,0.08)_1px,transparent_1px)] [background-size:24px_24px]">
         
