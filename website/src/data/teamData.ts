@@ -26,14 +26,14 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: '3',
-    name: 'Sayan Chouni',
+    name: 'Arghya Ghoshal',
     role: 'Senior Full-Stack & Real-Time Engineer',
     bio: 'Obsessed with sub-50ms WebSocket latency, reactive client state machines, and edge-native computation.',
     image: './assets/photo-1507003211169-0a1dd7228f2d.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FF4FA3',
-    github: 'https://github.com/SayanChouni',
-    linkedin: 'https://www.linkedin.com/in/sayan-chouni-b6a208321/',
-    x: 'https://x.com/SayanChouni'
+    github: 'https://github.com/vk-arghya',
+    linkedin: 'https://www.linkedin.com/in/arghya-ghoshal-56527529a',
+    //x: 'https://x.com'
   },
   {
     id: '4',
@@ -48,14 +48,14 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   /*{
     id: '5',
-    name: 'Alex Johnson',
+    name: 'Sayan Chouni',
     role: 'Product Manager',
     bio: 'Driving user-centric product strategies and leading cross-functional teams to deliver innovative solutions.',
     image: './assets/photo-1506744038956-a3ceca72a2c3.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FFC107',
-    github: 'https://github.com/alexjohnson',
-    linkedin: 'https://linkedin.com',
-    x: 'https://x.com'
+    github: 'https://github.com/SayanChouni',
+    linkedin: 'https://www.linkedin.com/in/sayan-chouni-b6a208321',
+    x: 'https://x.com/SayanChouni'
   },
   {
     id: '6',
