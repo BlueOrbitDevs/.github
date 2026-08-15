@@ -109,7 +109,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
                 <img
-                  src="./assets/badge/CYBERSECURITY.webp"
+                  src="./assets/badge/CYBERSECURITY_2026.webp"
                   alt="Cybersecurity Excellence Awards 2024"
                   className="h-10 sm:h-12 w-auto object-contain"
                   loading="lazy"

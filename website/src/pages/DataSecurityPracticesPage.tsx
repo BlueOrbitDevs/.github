@@ -108,7 +108,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
               </div>
               <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
                 <img
-                  src="./assets/badge/CYBERSECURITY.webp"
+                  src="./assets/badge/CYBERSECURITY_2026.webp"
                   alt="Cybersecurity Excellence Awards 2024"
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
@@ -244,7 +244,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
                   <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
                     <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
                       <img
-                        src="./assets/badge/CYBERSECURITY.webp"
+                        src="./assets/badge/CYBERSECURITY_2026.webp"
                         alt="Cybersecurity Excellence Awards 2024"
                         className="h-8 w-auto object-contain"
                         referrerPolicy="no-referrer"
