@@ -10,7 +10,8 @@ export const TEAM_MEMBERS: TeamMember[] = [
     avatarColor: '#5B4BFF',
     github: 'https://github.com/AmitDas4321',
     linkedin: 'https://www.linkedin.com/in/AmitDas4321',
-    x: 'https://x.com/AmitDas4321'
+    x: 'https://x.com/AmitDas4321',
+    instagram: 'https://www.instagram.com/amitdas4321',
   },
   {
     id: '2',
