@@ -1,34 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
 import { BlueOrbitLogo } from './CustomIllustrations';
 import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { useSectionNav, NAV_LINKS } from '../context/SectionNavContext';
 
 interface NavbarProps {
   onOpenContact?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { activePath, scrollToSection, isScrolled } = useSectionNav();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close mobile menu whenever location changes
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -41,15 +22,11 @@ export const Navbar: React.FC<NavbarProps> = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const navLinks = [
-    { name: 'Work', path: '/work' },
-    { name: 'Products', path: '/products' },
-    { name: 'Services', path: '/services' },
-    { name: 'Engineering', path: '/engineering' },
-    { name: 'Process', path: '/process' },
-    { name: 'About', path: '/about' },
-    { name: 'Team', path: '/team' }
-  ];
+  const handleLinkClick = (e: React.MouseEvent, path: string) => {
+    e.preventDefault();
+    scrollToSection(path, true);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-2.5 sm:px-6 lg:px-8 pt-2 sm:pt-3.5 pointer-events-none transition-all duration-300">
@@ -65,48 +42,53 @@ export const Navbar: React.FC<NavbarProps> = () => {
           }`}
         >
           {/* Logo */}
-          <Link
-            to="/"
+          <a
+            href="/"
             id="brand-logo"
+            onClick={(e) => handleLinkClick(e, '/')}
             aria-label="BlueOrbit Devs Home"
-            className="flex items-center gap-2 sm:gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF] rounded-full shrink-0"
+            className="flex items-center gap-2 sm:gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF] rounded-full shrink-0 cursor-pointer"
           >
             <BlueOrbitLogo size={32} variant="color" className="group-hover:scale-105 transition-transform duration-300 shadow-sm" />
             <span className="font-extrabold text-base sm:text-lg lg:text-xl tracking-tight text-[#17152B] flex items-center">
               BlueOrbit<span className="text-[#5B4BFF] ml-0.5">Devs</span>
             </span>
-          </Link>
+          </a>
 
           {/* Desktop Nav Items */}
           <div className="hidden lg:flex items-center gap-1 xl:gap-1.5">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.name}
-                to={link.path}
-                className={({ isActive }) =>
-                  `px-3.5 py-1.5 rounded-full text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF] ${
+            {NAV_LINKS.map((link) => {
+              const isActive = activePath === link.path;
+              return (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  id={`nav-link-${link.name.toLowerCase()}`}
+                  onClick={(e) => handleLinkClick(e, link.path)}
+                  className={`px-3.5 py-1.5 rounded-full text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF] cursor-pointer ${
                     isActive
                       ? 'bg-[#5B4BFF] text-white font-extrabold shadow-[2px_2px_0px_#151326] border-2 border-[#151326]'
                       : 'font-bold text-[#626078] hover:text-[#17152B] hover:bg-[#F0EEFF]'
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
+                  }`}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
           </div>
 
           {/* Desktop CTA & Mobile Toggle */}
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            <Link
-              to="/contact"
+            <a
+              href="/contact"
               id="nav-cta-btn"
-              className="inline-flex items-center justify-center gap-1 sm:gap-1.5 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#FF7043] text-white font-extrabold text-xs sm:text-sm border-2 border-[#151326] shadow-[2px_2px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_#151326] active:translate-y-[0px] active:shadow-[1px_1px_0px_#151326] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF] min-h-[38px] sm:min-h-[42px]"
+              onClick={(e) => handleLinkClick(e, '/contact')}
+              className="inline-flex items-center justify-center gap-1 sm:gap-1.5 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#FF7043] text-white font-extrabold text-xs sm:text-sm border-2 border-[#151326] shadow-[2px_2px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_#151326] active:translate-y-[0px] active:shadow-[1px_1px_0px_#151326] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF] min-h-[38px] sm:min-h-[42px] cursor-pointer"
             >
               <span className="hidden sm:inline">Start a Project</span>
               <span className="sm:hidden">Start</span>
               <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </Link>
+            </a>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -134,12 +116,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
           <div className="bg-white rounded-3xl border-2 border-[#151326] shadow-[6px_6px_0px_#151326] p-6 max-w-md w-full mx-auto my-auto flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between pb-4 border-b-2 border-[#F0EEFF]">
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
+              <a href="/" onClick={(e) => handleLinkClick(e, '/')} className="flex items-center gap-2 cursor-pointer">
                 <BlueOrbitLogo size={32} />
                 <span className="font-extrabold text-lg text-[#17152B]">
                   BlueOrbit<span className="text-[#5B4BFF]">Devs</span>
                 </span>
-              </Link>
+              </a>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
@@ -152,14 +134,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
             {/* Navigation links */}
             <div className="flex flex-col gap-2 py-6">
-              {navLinks.map((link) => {
-                const isActive = location.pathname === link.path;
+              {NAV_LINKS.map((link) => {
+                const isActive = activePath === link.path;
                 return (
-                  <Link
+                  <a
                     key={link.name}
-                    to={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-3 rounded-2xl text-base flex items-center justify-between border transition-all ${
+                    href={link.path}
+                    onClick={(e) => handleLinkClick(e, link.path)}
+                    className={`px-4 py-3 rounded-2xl text-base flex items-center justify-between border transition-all cursor-pointer ${
                       isActive
                         ? 'bg-[#5B4BFF] text-white font-extrabold border-[#151326] shadow-[2px_2px_0px_#151326]'
                         : 'text-[#17152B] font-bold hover:bg-[#F0EEFF] hover:text-[#5B4BFF] border-transparent'
@@ -167,21 +149,21 @@ export const Navbar: React.FC<NavbarProps> = () => {
                   >
                     <span>{link.name}</span>
                     <ArrowUpRight className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#626078]'}`} />
-                  </Link>
+                  </a>
                 );
               })}
             </div>
 
             {/* Drawer CTA */}
             <div className="pt-2 border-t-2 border-[#F0EEFF] flex flex-col gap-3">
-              <Link
-                to="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-3.5 px-6 rounded-full bg-[#FF7043] text-white font-extrabold text-base border-2 border-[#151326] shadow-[3px_3px_0px_#151326] active:translate-y-1 transition-all flex items-center justify-center gap-2"
+              <a
+                href="/contact"
+                onClick={(e) => handleLinkClick(e, '/contact')}
+                className="w-full text-center py-3.5 px-6 rounded-full bg-[#FF7043] text-white font-extrabold text-base border-2 border-[#151326] shadow-[3px_3px_0px_#151326] active:translate-y-1 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Let&apos;s Build Together</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </Link>
+              </a>
               <p className="text-center text-xs text-[#626078] font-medium flex items-center justify-center gap-1">
                 <Sparkles className="w-3.5 h-3.5 text-[#FFD84D]" />
                 Creative engineering for ambitious ideas.

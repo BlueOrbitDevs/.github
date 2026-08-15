@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { BlueOrbitLogo } from './CustomIllustrations';
 import { Github, Linkedin, Twitter, ArrowUp, ArrowRight, ArrowUpRight, Mail, Users } from 'lucide-react';
+import { useSectionNav } from '../context/SectionNavContext';
 
 export const Footer: React.FC = () => {
+  const { scrollToSection } = useSectionNav();
   const [visitorCount, setVisitorCount] = useState<number>(24180);
 
   useEffect(() => {
@@ -30,15 +31,16 @@ export const Footer: React.FC = () => {
     }
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleLinkClick = (e: React.MouseEvent, path: string) => {
+    e.preventDefault();
+    scrollToSection(path, true);
   };
 
   const navLinks = [
-    { name: 'Selected Work', path: '/work' },
     { name: 'Products & Platforms', path: '/products' },
-    { name: 'Services', path: '/services' },
+    { name: 'Selected Work', path: '/work' },
     { name: 'Engineering & Stack', path: '/engineering' },
+    { name: 'Services', path: '/services' },
     { name: 'Our Process', path: '/process' },
     { name: 'About Studio', path: '/about' },
     { name: 'Meet the Team', path: '/team' },
@@ -75,15 +77,16 @@ export const Footer: React.FC = () => {
           
           {/* Col 1: Brand Info & Mission Statement (5 Cols) */}
           <div className="lg:col-span-5 flex flex-col items-start space-y-6">
-            <Link
-              to="/"
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full pr-3"
+            <a
+              href="/"
+              onClick={(e) => handleLinkClick(e, '/')}
+              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full pr-3 cursor-pointer"
             >
               <BlueOrbitLogo size={44} variant="white" className="group-hover:scale-105 transition-transform duration-300 shadow-md" />
               <span className="font-extrabold text-2xl tracking-tight text-white flex items-center">
                 BlueOrbit<span className="text-[#FFD84D] ml-1">Devs</span>
               </span>
-            </Link>
+            </a>
 
             <p className="text-base sm:text-lg text-white/90 font-medium leading-relaxed max-w-md">
               Creative technology studio and product laboratory. We design, engineer, and ship digital products that move ambitious ideas forward.
@@ -122,13 +125,14 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className="text-sm sm:text-base font-bold text-white/80 hover:text-white transition-colors flex items-center gap-2 focus:outline-none focus-visible:underline"
+                  <a
+                    href={link.path}
+                    onClick={(e) => handleLinkClick(e, link.path)}
+                    className="text-sm sm:text-base font-bold text-white/80 hover:text-white transition-colors flex items-center gap-2 focus:outline-none focus-visible:underline cursor-pointer"
                   >
                     <ArrowRight className="w-3.5 h-3.5 text-[#FFD84D]" />
                     <span>{link.name}</span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -142,13 +146,14 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5">
               {caseStudyLinks.map((res) => (
                 <li key={res.name}>
-                  <Link
-                    to={res.path}
-                    className="text-sm sm:text-base font-bold text-white/80 hover:text-white transition-colors flex items-center gap-2 focus:outline-none focus-visible:underline"
+                  <a
+                    href={res.path}
+                    onClick={(e) => handleLinkClick(e, res.path)}
+                    className="text-sm sm:text-base font-bold text-white/80 hover:text-white transition-colors flex items-center gap-2 focus:outline-none focus-visible:underline cursor-pointer"
                   >
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#00C2FF]" />
                     <span>{res.name}</span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -156,7 +161,7 @@ export const Footer: React.FC = () => {
             <div className="pt-4">
               <button
                 type="button"
-                onClick={scrollToTop}
+                onClick={(e) => handleLinkClick(e, '/')}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-extrabold border border-white/30 transition-all cursor-pointer"
               >
                 <span>Back to top</span>

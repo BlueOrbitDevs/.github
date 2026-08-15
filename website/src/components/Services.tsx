@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { SERVICES } from '../data/servicesData';
 import { ServiceItem } from '../types';
 import { WaveDivider } from './WaveDivider';
 import { FloatingObject } from './FloatingDecorations';
 import { ArrowRight, ChevronDown, CheckCircle2, Sparkles } from 'lucide-react';
+import { useSectionNav } from '../context/SectionNavContext';
 
 interface ServicesProps {
   onOpenInquiry?: (serviceName?: string) => void;
 }
 
 export const Services: React.FC<ServicesProps> = ({ onOpenInquiry }) => {
-  const navigate = useNavigate();
+  const { scrollToSection } = useSectionNav();
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const toggleRow = (id: string) => {
@@ -118,7 +118,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenInquiry }) => {
                           if (onOpenInquiry) {
                             onOpenInquiry(srv.title);
                           } else {
-                            navigate('/contact');
+                            scrollToSection('/contact');
                           }
                         }}
                         className="px-5 py-2.5 rounded-full bg-[#FF7043] text-white font-extrabold text-xs sm:text-sm border-2 border-[#151326] shadow-[2px_2px_0px_#151326] hover:translate-y-[-2px] transition-all flex items-center gap-2 cursor-pointer"

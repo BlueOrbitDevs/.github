@@ -1,8 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { WaveDivider } from './WaveDivider';
 import { FloatingObject } from './FloatingDecorations';
 import { Rocket, ArrowRight, Sparkles } from 'lucide-react';
+import { useSectionNav } from '../context/SectionNavContext';
 
 interface CTAProps {
   onStartProject?: () => void;
@@ -10,16 +10,16 @@ interface CTAProps {
 }
 
 export const CTA: React.FC<CTAProps> = ({ onStartProject, onSeeWork }) => {
-  const navigate = useNavigate();
+  const { scrollToSection } = useSectionNav();
 
   const handleStart = () => {
     if (onStartProject) onStartProject();
-    else navigate('/contact');
+    else scrollToSection('/contact');
   };
 
   const handleWork = () => {
     if (onSeeWork) onSeeWork();
-    else navigate('/work');
+    else scrollToSection('/work');
   };
 
   return (

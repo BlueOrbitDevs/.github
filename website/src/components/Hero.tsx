@@ -1,9 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { HeroDeveloperIllustration } from './CustomIllustrations';
 import { FloatingObject } from './FloatingDecorations';
 import { WaveDivider } from './WaveDivider';
 import { ArrowRight, ArrowUpRight, Code2, Zap, Terminal, Layers } from 'lucide-react';
+import { useSectionNav } from '../context/SectionNavContext';
 
 interface HeroProps {
   onExploreWork?: () => void;
@@ -11,16 +11,16 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onExploreWork, onStartProject }) => {
-  const navigate = useNavigate();
+  const { scrollToSection } = useSectionNav();
 
   const handleExplore = () => {
     if (onExploreWork) onExploreWork();
-    else navigate('/work');
+    else scrollToSection('/work');
   };
 
   const handleTalk = () => {
     if (onStartProject) onStartProject();
-    else navigate('/contact');
+    else scrollToSection('/contact');
   };
 
   return (
@@ -111,7 +111,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onStartProject }) => 
                 </span>
                 <button
                   type="button"
-                  onClick={() => navigate('/products')}
+                  onClick={() => scrollToSection('/products')}
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[11px] sm:text-xs font-bold text-white whitespace-nowrap transition-colors cursor-pointer"
                 >
                   <Code2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#00C2FF]" />
@@ -119,7 +119,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onStartProject }) => 
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate('/products')}
+                  onClick={() => scrollToSection('/products')}
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[11px] sm:text-xs font-bold text-white whitespace-nowrap transition-colors cursor-pointer"
                 >
                   <Layers className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FF4FA3]" />
@@ -127,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onStartProject }) => 
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate('/engineering')}
+                  onClick={() => scrollToSection('/engineering')}
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[11px] sm:text-xs font-bold text-white whitespace-nowrap transition-colors cursor-pointer"
                 >
                   <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FFD84D]" />
@@ -135,7 +135,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onStartProject }) => 
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate('/engineering')}
+                  onClick={() => scrollToSection('/engineering')}
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-[11px] sm:text-xs font-bold text-white whitespace-nowrap transition-colors cursor-pointer"
                 >
                   <Terminal className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#55D88A]" />

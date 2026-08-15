@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   WebAppIllustration,
   SaaSIllustration,
@@ -8,13 +7,14 @@ import {
 } from './CustomIllustrations';
 import { FloatingObject } from './FloatingDecorations';
 import { ArrowRight, CheckCircle2, Globe, Cloud, Database, Zap, Sparkles } from 'lucide-react';
+import { useSectionNav } from '../context/SectionNavContext';
 
 interface WhatWeDoProps {
   onSelectCategory?: (category: string) => void;
 }
 
 export const WhatWeDo: React.FC<WhatWeDoProps> = ({ onSelectCategory }) => {
-  const navigate = useNavigate();
+  const { scrollToSection } = useSectionNav();
   const cards = [
     {
       id: 'web-apps',
@@ -142,7 +142,7 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({ onSelectCategory }) => {
                   type="button"
                   onClick={() => {
                     if (onSelectCategory) onSelectCategory(card.id);
-                    navigate('/work');
+                    scrollToSection('/work');
                   }}
                   className="inline-flex items-center gap-1.5 font-extrabold text-xs sm:text-sm text-[#17152B] group-hover:text-[#5B4BFF] transition-colors focus:outline-none focus-visible:underline cursor-pointer"
                 >
