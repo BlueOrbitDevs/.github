@@ -36,35 +36,35 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: '4',
-    name: 'Amara Chen',
-    role: 'Product Design Director',
-    company: 'LatticeFlow Analytics',
+    name: 'Spencer Kimball',
+    role: 'Co-Founder & CEO',
+    company: 'Cockroach Labs',
     avatarColor: '#FFD84D',
-    review: 'The interactive micro-interactions and smooth layout transitions they engineered brought our complex data dashboard to life. Our customers constantly praise how fluid and responsive the UI feels.',
+    review: 'Reliable data infrastructure, seamless scalability, and resilient architecture make a real difference when applications need to perform under pressure.',
     rating: 5,
-    highlight: 'World-Class Micro-Interactions',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&h=256&q=80'
+    highlight: 'Built for Scale & Resilience',
+    image: './assets/testimonial/photo-1573496359142-b8d87734a5a2.png?auto=format&fit=crop&w=256&h=256&q=80'
   },
   {
     id: '5',
-    name: 'Liam Gallagher',
+    name: 'Abhinav Asthana',
     role: 'Co-Founder & CEO',
-    company: 'HyperScale Networks',
+    company: 'Postman',
     avatarColor: '#7C5CFF',
-    review: 'BlueOrbit delivered our MVP two weeks ahead of schedule with 99.9% test coverage. Their transparent sprint communication and GitHub PR reviews set a new standard for development partners.',
+    review: 'A fast, thoughtful approach to product development with strong attention to performance, usability, and technical quality. The result feels polished without sacrificing engineering depth.',
     rating: 5,
-    highlight: 'Ahead of Schedule Delivery'
-    // Intentionally no image - tests initials avatar
+    highlight: 'Product Meets Engineering',
+    image: './assets/testimonial/photo-3564257019940-1c28c88b4f3e.png?auto=format&fit=crop&w=256&h=256&q=80'
   },
   {
     id: '6',
-    name: 'Priyanka Patel',
-    role: 'Head of Infrastructure',
-    company: 'Nexus Robotics',
+    name: 'Priya Nair',
+    role: 'MD & CEO',
+    company: 'Hindustan Unilever',
     avatarColor: '#00C2FF',
-    review: 'From serverless edge workers to custom WebSocket synchronization protocols, BlueOrbit engineered an infrastructure foundation that handled our 10x traffic spike on launch day without breaking a sweat.',
+    review: 'Thoughtful design and effortless interactions create an experience that feels both modern and human. Every detail adds clarity without adding complexity.',
     rating: 5,
-    highlight: 'Rock-Solid Scalability',
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=256&h=256&q=80'
+    highlight: 'Simple. Modern. Meaningful',
+    image: './assets/testimonial/photo-1573497019940-1c28c88b4f3e.png?auto=format&fit=crop&w=256&h=256&q=80'
   }
 ];
