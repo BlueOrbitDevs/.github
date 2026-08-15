@@ -168,28 +168,28 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
       {/* ========================================================================= */}
       {/* 1. TOP CONTROL BAR (Mobile-Optimized & Desktop-Compliant Header) */}
       {/* ========================================================================= */}
-      <header className="min-h-[52px] sm:min-h-[60px] md:h-18 bg-[#14182B] border-b border-[rgba(148,163,184,0.16)] px-2 sm:px-4 md:px-6 py-1.5 sm:py-2 flex items-center justify-between shrink-0 z-30 shadow-lg relative w-full max-w-full overflow-hidden">
+      <header className="h-14 sm:h-16 md:h-18 bg-[#12162A]/95 backdrop-blur-md border-b border-[rgba(148,163,184,0.14)] px-2.5 sm:px-4 md:px-6 flex items-center justify-between shrink-0 z-30 shadow-md relative w-full max-w-full overflow-hidden">
         
-        {/* LEFT: Back Button + Project Name + LIVE Badge */}
-        <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
-          {/* Back to Projects Button (Min 44x44px touch target) */}
+        {/* LEFT: Back Button + Project Name */}
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 md:flex-initial pr-2 md:pr-0">
+          {/* Back Button (44px touch target, compact pill on mobile) */}
           <button
             type="button"
             id="live-demo-back-btn"
             onClick={onClose}
             aria-label="Back to Projects"
-            className="flex items-center justify-center gap-1 px-2.5 sm:px-3.5 py-1.5 min-h-[44px] min-w-[44px] rounded-full bg-[#191E35] hover:bg-[#202640] text-[#F8FAFC] font-bold text-xs sm:text-sm border border-[rgba(148,163,184,0.16)] hover:border-[rgba(148,163,184,0.3)] transition-all cursor-pointer shadow-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#38BDF8] shrink-0"
+            className="flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 min-h-[44px] min-w-[44px] rounded-full bg-[#181D33] hover:bg-[#202742] active:scale-95 text-[#E2E8F0] hover:text-white text-xs font-semibold border border-[rgba(148,163,184,0.18)] hover:border-[rgba(148,163,184,0.32)] transition-all cursor-pointer shadow-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#38BDF8] shrink-0"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform text-[#38BDF8]" />
-            <span className="hidden min-[360px]:inline sm:inline">Back</span>
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform text-[#38BDF8] shrink-0" />
+            <span className="hidden min-[360px]:inline">Back</span>
           </button>
 
-          {/* Vertical Divider */}
-          <div className="h-5 w-px bg-[rgba(148,163,184,0.16)] hidden sm:block" />
+          {/* Vertical Divider (desktop only) */}
+          <div className="h-5 w-px bg-[rgba(148,163,184,0.16)] hidden sm:block shrink-0" />
 
-          {/* Project Title */}
-          <div className="min-w-0">
-            <h3 className="font-bold text-xs sm:text-sm md:text-base tracking-tight truncate text-[#F8FAFC]">
+          {/* Project Title (Clean, vertically centered, perfectly scaled) */}
+          <div className="min-w-0 flex-1 md:flex-initial">
+            <h3 className="font-bold text-xs min-[360px]:text-sm sm:text-base tracking-tight truncate text-[#F8FAFC] leading-none">
               {project.title}
             </h3>
           </div>
@@ -296,16 +296,16 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
             <span className="hidden lg:inline">{isFullscreen ? 'Exit Full' : 'Fullscreen'}</span>
           </button>
 
-          {/* Open Live Site Button (Compact, accessible CTA with 44px min height) */}
+          {/* Open Live Site Button (Compact, polished pill with 44px min touch target) */}
           <a
             href={activeUrl}
             target="_blank"
             rel="noopener noreferrer"
             id="live-demo-open-external-btn"
-            className="flex items-center justify-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 min-h-[44px] rounded-full bg-[#38BDF8] hover:bg-[#7dd3fc] text-[#06111F] font-extrabold text-xs sm:text-sm shadow-md hover:shadow-cyan-500/20 active:scale-95 transition-all cursor-pointer shrink-0"
+            className="flex items-center justify-center gap-1 sm:gap-1.5 px-2.5 min-[360px]:px-3.5 sm:px-4 py-1.5 min-h-[44px] rounded-full bg-[#38BDF8] hover:bg-[#7dd3fc] active:scale-95 text-[#06111F] font-bold text-xs sm:text-xs shadow-sm hover:shadow-cyan-500/25 transition-all cursor-pointer shrink-0"
           >
-            <span className="whitespace-nowrap hidden min-[360px]:inline">Open Site</span>
-            <span className="whitespace-nowrap min-[360px]:hidden">Open</span>
+            <span className="whitespace-nowrap hidden min-[360px]:inline font-bold">Open Site</span>
+            <span className="whitespace-nowrap min-[360px]:hidden font-bold">Open</span>
             <ExternalLink className="w-3.5 h-3.5 shrink-0" />
           </a>
         </div>
