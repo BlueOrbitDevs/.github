@@ -51,7 +51,7 @@ export const SERVICES: ServiceItem[] = [
     number: '06',
     title: 'Cloud Infrastructure & DevOps',
     description: 'Containerized deployments, automated CI/CD pipelines, edge networks, zero-downtime rollouts, and proactive observability monitoring.',
-    deliverables: ['Docker & Container Orchestration', 'AWS / Google Cloud / Azure / Oracle / Cloudflare Edge Setup', 'Automated CI/CD Workflows', 'Log Aggregation & Metrics'],
+    deliverables: ['Docker & Container Orchestration', 'AWS + Multi-Cloud / Cloudflare Edge Setup', 'Automated CI/CD Workflows', 'Log Aggregation & Metrics'],
     accentColor: '#55D88A',
     iconName: 'cloud'
   },
