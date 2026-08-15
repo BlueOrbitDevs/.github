@@ -81,6 +81,20 @@ export interface TeamMember {
   github?: string;
   linkedin?: string;
   x?: string;
+  twitter?: string;
+  instagram?: string;
+  facebook?: string;
+  youtube?: string;
+  website?: string;
+  portfolio?: string;
+  email?: string;
+  dribbble?: string;
+  behance?: string;
+  discord?: string;
+  telegram?: string;
+  threads?: string;
+  gitlab?: string;
+  twitch?: string;
 }
 
 export interface InquiryFormState {

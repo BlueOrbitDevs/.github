@@ -1,7 +1,25 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { TEAM_MEMBERS } from '../data/teamData';
 import { FloatingObject } from './FloatingDecorations';
-import { Users, Github, Linkedin, Twitter, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Users,
+  Github,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Facebook,
+  Youtube,
+  Globe,
+  Mail,
+  Dribbble,
+  Send,
+  MessageSquare,
+  AtSign,
+  Twitch,
+  Gitlab,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
 import { TeamMember } from '../types';
 
 interface TeamMemberCardProps {
@@ -21,6 +39,113 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
 
   const initials = getInitials(member.name);
   const accentColor = member.avatarColor || '#5B4BFF';
+
+  const socialLinks = [
+    member.github && {
+      key: 'github',
+      url: member.github,
+      label: `${member.name} on GitHub`,
+      icon: Github,
+      hoverClass: 'hover:bg-[#151326] hover:text-white',
+    },
+    member.linkedin && {
+      key: 'linkedin',
+      url: member.linkedin,
+      label: `${member.name} on LinkedIn`,
+      icon: Linkedin,
+      hoverClass: 'hover:bg-[#0077B5] hover:text-white',
+    },
+    (member.x || member.twitter) && {
+      key: 'x',
+      url: member.x || member.twitter,
+      label: `${member.name} on X`,
+      icon: Twitter,
+      hoverClass: 'hover:bg-[#151326] hover:text-white',
+    },
+    member.instagram && {
+      key: 'instagram',
+      url: member.instagram,
+      label: `${member.name} on Instagram`,
+      icon: Instagram,
+      hoverClass: 'hover:bg-[#E1306C] hover:text-white',
+    },
+    member.facebook && {
+      key: 'facebook',
+      url: member.facebook,
+      label: `${member.name} on Facebook`,
+      icon: Facebook,
+      hoverClass: 'hover:bg-[#1877F2] hover:text-white',
+    },
+    member.youtube && {
+      key: 'youtube',
+      url: member.youtube,
+      label: `${member.name} on YouTube`,
+      icon: Youtube,
+      hoverClass: 'hover:bg-[#FF0000] hover:text-white',
+    },
+    (member.website || member.portfolio) && {
+      key: 'website',
+      url: member.website || member.portfolio,
+      label: `${member.name}'s Website`,
+      icon: Globe,
+      hoverClass: 'hover:bg-[#5B4BFF] hover:text-white',
+    },
+    member.email && {
+      key: 'email',
+      url: member.email.startsWith('mailto:') ? member.email : `mailto:${member.email}`,
+      label: `Email ${member.name}`,
+      icon: Mail,
+      hoverClass: 'hover:bg-[#5B4BFF] hover:text-white',
+    },
+    member.dribbble && {
+      key: 'dribbble',
+      url: member.dribbble,
+      label: `${member.name} on Dribbble`,
+      icon: Dribbble,
+      hoverClass: 'hover:bg-[#EA4C89] hover:text-white',
+    },
+    member.discord && {
+      key: 'discord',
+      url: member.discord,
+      label: `${member.name} on Discord`,
+      icon: MessageSquare,
+      hoverClass: 'hover:bg-[#5865F2] hover:text-white',
+    },
+    member.telegram && {
+      key: 'telegram',
+      url: member.telegram,
+      label: `${member.name} on Telegram`,
+      icon: Send,
+      hoverClass: 'hover:bg-[#229ED9] hover:text-white',
+    },
+    member.threads && {
+      key: 'threads',
+      url: member.threads,
+      label: `${member.name} on Threads`,
+      icon: AtSign,
+      hoverClass: 'hover:bg-[#151326] hover:text-white',
+    },
+    member.gitlab && {
+      key: 'gitlab',
+      url: member.gitlab,
+      label: `${member.name} on GitLab`,
+      icon: Gitlab,
+      hoverClass: 'hover:bg-[#FC6D26] hover:text-white',
+    },
+    member.twitch && {
+      key: 'twitch',
+      url: member.twitch,
+      label: `${member.name} on Twitch`,
+      icon: Twitch,
+      hoverClass: 'hover:bg-[#9146FF] hover:text-white',
+    },
+  ].filter(Boolean) as {
+    key: string;
+    url: string;
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
+    hoverClass: string;
+  }[];
 
   return (
     <div className="group rounded-[28px] bg-white text-[#17152B] border-3 border-[#151326] p-5 sm:p-7 shadow-[6px_6px_0px_#151326] hover:translate-y-[-4px] sm:hover:translate-y-[-6px] hover:shadow-[10px_10px_0px_#151326] transition-all duration-300 flex flex-col justify-between h-full w-full select-none">
@@ -75,43 +200,23 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
       </div>
 
       {/* Social Links Footer */}
-      {(member.github || member.linkedin || member.x) && (
-        <div className="pt-3.5 sm:pt-4 border-t border-[#151326]/10 flex items-center gap-2 mt-auto">
-          {member.github && (
-            <a
-              href={member.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${member.name} on GitHub`}
-              className="w-9 h-9 rounded-full bg-[#F7F7FF] border border-[#151326]/15 hover:border-[#151326] hover:bg-[#151326] hover:text-white text-[#17152B] flex items-center justify-center transition-all shadow-sm hover:translate-y-[-2px] hover:shadow-[2px_2px_0px_#151326] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-          )}
-
-          {member.linkedin && (
-            <a
-              href={member.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${member.name} on LinkedIn`}
-              className="w-9 h-9 rounded-full bg-[#F7F7FF] border border-[#151326]/15 hover:border-[#151326] hover:bg-[#0077B5] hover:text-white text-[#17152B] flex items-center justify-center transition-all shadow-sm hover:translate-y-[-2px] hover:shadow-[2px_2px_0px_#151326] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-          )}
-
-          {member.x && (
-            <a
-              href={member.x}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${member.name} on X`}
-              className="w-9 h-9 rounded-full bg-[#F7F7FF] border border-[#151326]/15 hover:border-[#151326] hover:bg-[#151326] hover:text-white text-[#17152B] flex items-center justify-center transition-all shadow-sm hover:translate-y-[-2px] hover:shadow-[2px_2px_0px_#151326] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
-            >
-              <Twitter className="w-4 h-4" />
-            </a>
-          )}
+      {socialLinks.length > 0 && (
+        <div className="pt-3.5 sm:pt-4 border-t border-[#151326]/10 flex items-center gap-2 flex-wrap mt-auto">
+          {socialLinks.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.key}
+                href={item.url}
+                target={item.key === 'email' ? undefined : '_blank'}
+                rel={item.key === 'email' ? undefined : 'noopener noreferrer'}
+                aria-label={item.label}
+                className={`w-9 h-9 rounded-full bg-[#F7F7FF] border border-[#151326]/15 hover:border-[#151326] ${item.hoverClass} text-[#17152B] flex items-center justify-center transition-all shadow-sm hover:translate-y-[-2px] hover:shadow-[2px_2px_0px_#151326] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]`}
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            );
+          })}
         </div>
       )}
     </div>
