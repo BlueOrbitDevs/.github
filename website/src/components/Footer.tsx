@@ -1,7 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BlueOrbitLogo } from './CustomIllustrations';
-import { Github, Linkedin, Twitter, ArrowUp, ArrowRight, ArrowUpRight, Mail } from 'lucide-react';
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Facebook,
+  Youtube,
+  Globe,
+  Mail,
+  Dribbble,
+  Send,
+  MessageSquare,
+  AtSign,
+  Twitch,
+  Gitlab,
+  ArrowUp,
+  ArrowRight,
+  ArrowUpRight
+} from 'lucide-react';
 import { useSectionNav } from '../context/SectionNavContext';
 
 export const Footer: React.FC = () => {
@@ -31,10 +49,24 @@ export const Footer: React.FC = () => {
     { name: 'TextSnap Snippet Engine', path: '/work' }
   ];
 
-  const socialLinks = [
-    { name: 'GitHub', href: 'https://github.com/blueorbitdevs', icon: <Github className="w-5 h-5" /> },
-    { name: 'LinkedIn', href: 'https://linkedin.com', icon: <Linkedin className="w-5 h-5" /> },
-    { name: 'X / Twitter', href: 'https://x.com', icon: <Twitter className="w-5 h-5" /> }
+  // Active and easily extensible social media links
+  const socialLinks: {
+    name: string;
+    href: string;
+    icon: React.ReactNode;
+    hoverBg?: string;
+  }[] = [
+    { name: 'GitHub', href: 'https://github.com/blueorbitdevs', icon: <Github className="w-5 h-5" />, hoverBg: 'hover:bg-[#151326] hover:text-white' },
+    { name: 'LinkedIn', href: 'https://linkedin.com', icon: <Linkedin className="w-5 h-5" />, hoverBg: 'hover:bg-[#0077B5] hover:text-white' },
+    { name: 'X / Twitter', href: 'https://x.com', icon: <Twitter className="w-5 h-5" />, hoverBg: 'hover:bg-[#151326] hover:text-white' },
+    // Uncomment or add any of the following whenever needed:
+    // { name: 'Instagram', href: 'https://instagram.com/blueorbitdevs', icon: <Instagram className="w-5 h-5" />, hoverBg: 'hover:bg-[#E1306C] hover:text-white' },
+    // { name: 'Facebook', href: 'https://facebook.com/blueorbitdevs', icon: <Facebook className="w-5 h-5" />, hoverBg: 'hover:bg-[#1877F2] hover:text-white' },
+    // { name: 'YouTube', href: 'https://youtube.com/@blueorbitdevs', icon: <Youtube className="w-5 h-5" />, hoverBg: 'hover:bg-[#FF0000] hover:text-white' },
+    // { name: 'Discord', href: 'https://discord.gg/yourserver', icon: <MessageSquare className="w-5 h-5" />, hoverBg: 'hover:bg-[#5865F2] hover:text-white' },
+    // { name: 'Telegram', href: 'https://t.me/blueorbitdevs', icon: <Send className="w-5 h-5" />, hoverBg: 'hover:bg-[#229ED9] hover:text-white' },
+    // { name: 'Dribbble', href: 'https://dribbble.com/blueorbitdevs', icon: <Dribbble className="w-5 h-5" />, hoverBg: 'hover:bg-[#EA4C89] hover:text-white' },
+    // { name: 'Threads', href: 'https://threads.net/@blueorbitdevs', icon: <AtSign className="w-5 h-5" />, hoverBg: 'hover:bg-[#151326] hover:text-white' },
   ];
 
   return (
@@ -108,7 +140,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3 pt-2 flex-wrap">
               {socialLinks.map((s) => (
                 <a
                   key={s.name}
@@ -116,7 +148,7 @@ export const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Visit BlueOrbit Devs on ${s.name}`}
-                  className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-white text-white hover:text-[#17152B] border-2 border-white/30 flex items-center justify-center transition-all hover:scale-105 shadow-[2px_2px_0px_rgba(0,0,0,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-white text-white hover:text-[#17152B] border-2 border-white/30 flex items-center justify-center transition-all hover:scale-105 shadow-[2px_2px_0px_rgba(0,0,0,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
                 >
                   {s.icon}
                 </a>
