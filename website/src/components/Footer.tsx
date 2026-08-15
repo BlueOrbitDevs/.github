@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
             <div className="flex items-center gap-3 pt-1">
               <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
                 <img
-                  src="https://cloudstoragesecurity.com/hubfs/images/soc.svg"
+                  src="./assets/badge/SOS.svg"
                   alt="AICPA SOC"
                   className="h-10 sm:h-12 w-auto object-contain"
                   loading="lazy"
@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
                 <img
-                  src="https://cloudstoragesecurity.com/hs-fs/hubfs/Website/Website_On_Page_Graphics/cybersecurity%20excellence%20awards%202024.webp"
+                  src="./assets/badge/CYBERSECURITY.webp"
                   alt="Cybersecurity Excellence Awards 2024"
                   className="h-10 sm:h-12 w-auto object-contain"
                   loading="lazy"
@@ -86,7 +86,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
                 <img
-                  src="https://cloudstoragesecurity.com/hs-fs/hubfs/AWS%20Badges/AWS%20Badge%20Partner%20footer%20logo%2080x80.webp"
+                  src="./assets/badge/AWS.webp"
                   alt="AWS Partner"
                   className="h-10 sm:h-12 w-auto object-contain"
                   loading="lazy"

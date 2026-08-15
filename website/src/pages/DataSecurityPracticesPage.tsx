@@ -99,7 +99,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
             <div className="flex items-center gap-4">
               <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
                 <img
-                  src="https://cloudstoragesecurity.com/hubfs/images/soc.svg"
+                  src="./assets/badge/SOS.svg"
                   alt="AICPA SOC"
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
@@ -108,7 +108,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
               </div>
               <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
                 <img
-                  src="https://cloudstoragesecurity.com/hs-fs/hubfs/Website/Website_On_Page_Graphics/cybersecurity%20excellence%20awards%202024.webp"
+                  src="./assets/badge/CYBERSECURITY.webp"
                   alt="Cybersecurity Excellence Awards 2024"
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
@@ -117,7 +117,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
               </div>
               <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
                 <img
-                  src="https://cloudstoragesecurity.com/hs-fs/hubfs/AWS%20Badges/AWS%20Badge%20Partner%20footer%20logo%2080x80.webp"
+                  src="./assets/badge/AWS.webp"
                   alt="AWS Partner"
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
@@ -227,7 +227,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
                   <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
                     <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
                       <img
-                        src="https://cloudstoragesecurity.com/hubfs/images/soc.svg"
+                        src="./assets/badge/SOS.svg"
                         alt="AICPA SOC"
                         className="h-8 w-auto object-contain"
                         referrerPolicy="no-referrer"
@@ -244,7 +244,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
                   <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
                     <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
                       <img
-                        src="https://cloudstoragesecurity.com/hs-fs/hubfs/Website/Website_On_Page_Graphics/cybersecurity%20excellence%20awards%202024.webp"
+                        src="./assets/badge/CYBERSECURITY.webp"
                         alt="Cybersecurity Excellence Awards 2024"
                         className="h-8 w-auto object-contain"
                         referrerPolicy="no-referrer"
@@ -261,7 +261,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
                   <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
                     <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
                       <img
-                        src="https://cloudstoragesecurity.com/hs-fs/hubfs/AWS%20Badges/AWS%20Badge%20Partner%20footer%20logo%2080x80.webp"
+                        src="./assets/badge/AWS.webp"
                         alt="AWS Partner"
                         className="h-8 w-auto object-contain"
                         referrerPolicy="no-referrer"
