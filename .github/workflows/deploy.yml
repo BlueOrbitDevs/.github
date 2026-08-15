@@ -27,7 +27,7 @@ jobs:
         working-directory: ./website
         run: npm run build
 
-      - name: Deploy dist files to aaPanel
+      - name: Deploy dist files to VPS
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
