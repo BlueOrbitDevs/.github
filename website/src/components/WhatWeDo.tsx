@@ -107,10 +107,10 @@ export const WhatWeDo: React.FC<WhatWeDoProps> = ({ onSelectCategory }) => {
               <div>
                 {/* Card Top Row: Clean Lucide Icon Badge & Category Pill */}
                 <div className="flex items-center justify-between gap-4 mb-4">
-                  <div className="w-12 h-12 bg-white rounded-2xl shadow-sm border border-[#151326]/10 flex items-center justify-center">
+                  <div className="w-12 h-12 min-w-[48px] min-h-[48px] shrink-0 bg-white rounded-2xl shadow-sm border border-[#151326]/10 flex items-center justify-center">
                     {card.icon}
                   </div>
-                  <span className="px-2.5 py-1 rounded-full bg-white text-[10px] font-extrabold tracking-wider text-[#17152B] border border-[#151326]/10 uppercase">
+                  <span className="px-2.5 py-1 rounded-full bg-white text-[10px] font-extrabold tracking-wider text-[#17152B] border border-[#151326]/10 uppercase shrink-0">
                     {card.pill}
                   </span>
                 </div>

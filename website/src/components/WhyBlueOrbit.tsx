@@ -56,12 +56,12 @@ export const WhyBlueOrbit: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div
-                    className="w-16 h-16 rounded-2xl border-2 border-[#151326] shadow-[3px_3px_0px_#151326] flex items-center justify-center p-3 group-hover:scale-110 transition-transform"
+                    className="w-16 h-16 min-w-[64px] min-h-[64px] shrink-0 rounded-2xl border-2 border-[#151326] shadow-[3px_3px_0px_#151326] flex items-center justify-center p-3 group-hover:scale-110 transition-transform"
                     style={{ backgroundColor: pillar.bgLight }}
                   >
                     {getPillarIcon(pillar.tag)}
                   </div>
-                  <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase text-[#17152B] bg-[#F7F7FF] border border-[#151326]/20 tracking-wider">
+                  <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase text-[#17152B] bg-[#F7F7FF] border border-[#151326]/20 tracking-wider shrink-0">
                     {pillar.tag}
                   </span>
                 </div>

@@ -41,10 +41,10 @@ export const Engineering: React.FC = () => {
   ];
 
   const pipelineStages = [
-    { id: 1, title: 'Client Interaction', icon: <Globe className="w-5 h-5" />, latency: '< 5ms', detail: 'Instant optimistic UI feedback & local caching' },
-    { id: 2, title: 'Edge Routing', icon: <Zap className="w-5 h-5" />, latency: '12ms', detail: 'Global Cloudflare Worker TLS termination & DDoS shield' },
-    { id: 3, title: 'Service Runtime', icon: <Server className="w-5 h-5" />, latency: '24ms', detail: 'Node.js Express microservices & BullMQ worker concurrency' },
-    { id: 4, title: 'Data Persistence', icon: <Database className="w-5 h-5" />, latency: '18ms', detail: 'PostgreSQL ACID transactions + Redis in-memory cache' }
+    { id: 1, title: 'Client Interaction', icon: <Globe className="w-6 h-6 sm:w-5 sm:h-5 shrink-0" />, latency: '< 5ms', detail: 'Instant optimistic UI feedback & local caching' },
+    { id: 2, title: 'Edge Routing', icon: <Zap className="w-6 h-6 sm:w-5 sm:h-5 shrink-0" />, latency: '12ms', detail: 'Global Cloudflare Worker TLS termination & DDoS shield' },
+    { id: 3, title: 'Service Runtime', icon: <Server className="w-6 h-6 sm:w-5 sm:h-5 shrink-0" />, latency: '24ms', detail: 'Node.js Express microservices & BullMQ worker concurrency' },
+    { id: 4, title: 'Data Persistence', icon: <Database className="w-6 h-6 sm:w-5 sm:h-5 shrink-0" />, latency: '18ms', detail: 'PostgreSQL ACID transactions + Redis in-memory cache' }
   ];
 
   return (
@@ -62,52 +62,62 @@ export const Engineering: React.FC = () => {
           
           {/* Left Column: Interactive Live Architecture Visual */}
           <div className="lg:col-span-6 order-2 lg:order-1">
-            <div className="rounded-[28px] bg-[#151326] border-3 border-[#151326] p-6 sm:p-8 shadow-[8px_8px_0px_#151326] text-white">
+            <div className="rounded-[28px] bg-[#151326] border-3 border-[#151326] p-4 min-[375px]:p-6 sm:p-8 shadow-[6px_6px_0px_#151326] sm:shadow-[8px_8px_0px_#151326] text-white w-full max-w-full">
               
               {/* Architecture Terminal Header */}
-              <div className="flex items-center justify-between pb-6 border-b border-white/15">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex gap-1.5">
-                    <span className="w-3 h-3 rounded-full bg-[#FF4FA3]" />
-                    <span className="w-3 h-3 rounded-full bg-[#FFD84D]" />
-                    <span className="w-3 h-3 rounded-full bg-[#55D88A]" />
+              <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-white/15">
+                <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                  <div className="flex gap-1.5 shrink-0">
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FF4FA3]" />
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#FFD84D]" />
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#55D88A]" />
                   </div>
-                  <span className="font-mono text-xs text-white/70 font-bold ml-2">architecture-flow.sys</span>
+                  <span className="font-mono text-[11px] sm:text-xs text-white/70 font-bold ml-1.5 sm:ml-2 truncate">architecture-flow.sys</span>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#55D88A]/20 text-[#55D88A] text-[11px] font-mono font-bold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#55D88A] animate-pulse" /> ACTIVE PIPELINE
+                <span className="px-2 sm:px-2.5 py-0.5 rounded-full bg-[#55D88A]/20 text-[#55D88A] text-[10px] sm:text-[11px] font-mono font-bold flex items-center gap-1.5 shrink-0">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#55D88A] animate-pulse" /> ACTIVE PIPELINE
                 </span>
               </div>
 
               {/* Interactive Pipeline Steps */}
-              <div className="py-6 space-y-3">
+              <div className="py-5 sm:py-6 space-y-3">
                 {pipelineStages.map((st) => (
                   <div
                     key={st.id}
                     onClick={() => setActivePipelineStep(st.id)}
-                    className={`p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between gap-4 ${
+                    className={`p-3 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between gap-2.5 sm:gap-4 w-full ${
                       activePipelineStep === st.id
                         ? 'bg-[#5B4BFF]/25 border-[#00C2FF] shadow-[0_0_15px_rgba(0,194,255,0.2)]'
                         : 'bg-white/5 border-white/10 hover:bg-white/10'
                     }`}
                   >
-                    <div className="flex items-center gap-3.5">
+                    <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 flex-1">
+                      {/* Fixed Square Icon Container (44x44px on mobile, 40x40px on sm+) with flex-shrink: 0 */}
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm border"
+                        className="w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-[40px] sm:min-h-[40px] shrink-0 rounded-xl flex items-center justify-center font-bold text-sm border transition-colors"
                         style={{
                           backgroundColor: activePipelineStep === st.id ? '#00C2FF' : 'rgba(255,255,255,0.1)',
                           borderColor: activePipelineStep === st.id ? '#151326' : 'rgba(255,255,255,0.2)',
-                          color: activePipelineStep === st.id ? '#151326' : '#FFFFFF'
+                          color: activePipelineStep === st.id ? '#151326' : '#FFFFFF',
+                          flexShrink: 0
                         }}
                       >
                         {st.icon}
                       </div>
-                      <div>
-                        <h4 className="font-extrabold text-sm sm:text-base text-white">{st.title}</h4>
-                        <p className="text-xs text-white/70 font-medium">{st.detail}</p>
+
+                      {/* Content Area wraps independently without compressing the icon */}
+                      <div className="min-w-0 flex-1">
+                        <h4 className="font-extrabold text-sm sm:text-base text-white tracking-tight truncate sm:whitespace-normal">
+                          {st.title}
+                        </h4>
+                        <p className="text-xs text-white/70 font-medium line-clamp-2 sm:line-clamp-none break-words">
+                          {st.detail}
+                        </p>
                       </div>
                     </div>
-                    <span className="font-mono text-xs font-bold text-[#FFD84D] px-2 py-1 rounded bg-black/40">
+
+                    {/* Latency Badge properly sized and aligned */}
+                    <span className="font-mono text-[11px] sm:text-xs font-bold text-[#FFD84D] px-2 sm:px-2.5 py-1 rounded bg-black/40 shrink-0 whitespace-nowrap self-center border border-white/5">
                       {st.latency}
                     </span>
                   </div>
@@ -115,14 +125,16 @@ export const Engineering: React.FC = () => {
               </div>
 
               {/* Active Pipeline Inspector Details */}
-              <div className="p-4 rounded-2xl bg-[#1E1B38] border border-white/10 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-[#FF7043]" />
-                  <span className="font-mono text-white/80">
+              <div className="p-3 sm:p-4 rounded-2xl bg-[#1E1B38] border border-white/10 flex items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <div className="w-5 h-5 min-w-[20px] min-h-[20px] shrink-0 flex items-center justify-center">
+                    <Cpu className="w-4 h-4 text-[#FF7043] shrink-0" />
+                  </div>
+                  <span className="font-mono text-white/80 truncate text-[11px] sm:text-xs">
                     Stage {activePipelineStep}/4: Verified Zero-Loss Packet Buffer
                   </span>
                 </div>
-                <span className="font-mono text-[#55D88A] font-bold">100% OK</span>
+                <span className="font-mono text-[#55D88A] font-bold shrink-0 whitespace-nowrap text-[11px] sm:text-xs">100% OK</span>
               </div>
 
             </div>
