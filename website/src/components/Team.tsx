@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { TEAM_MEMBERS } from '../data/teamData';
 import { FloatingObject } from './FloatingDecorations';
 import { Users, Github, Linkedin, Twitter, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -23,12 +23,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
   const accentColor = member.avatarColor || '#5B4BFF';
 
   return (
-    <div
-      className="group rounded-[28px] bg-white text-[#17152B] border-3 border-[#151326] p-6 sm:p-7 shadow-[6px_6px_0px_#151326] hover:translate-y-[-6px] hover:shadow-[10px_10px_0px_#151326] transition-all duration-300 flex flex-col justify-between h-full w-full"
-    >
+    <div className="group rounded-[28px] bg-white text-[#17152B] border-3 border-[#151326] p-5 sm:p-7 shadow-[6px_6px_0px_#151326] hover:translate-y-[-4px] sm:hover:translate-y-[-6px] hover:shadow-[10px_10px_0px_#151326] transition-all duration-300 flex flex-col justify-between h-full w-full select-none">
       <div>
-        {/* Large Prominent Organic Portrait Container */}
-        <div className="relative mb-6 rounded-[22px] overflow-hidden border-2 border-[#151326] shadow-[3px_3px_0px_#151326] aspect-[4/4.8] bg-[#F0EEFF] flex items-center justify-center">
+        {/* Prominent Organic Portrait Container */}
+        <div className="relative mb-4 sm:mb-6 rounded-[22px] overflow-hidden border-2 border-[#151326] shadow-[3px_3px_0px_#151326] aspect-[4/4.6] bg-[#F0EEFF] flex items-center justify-center">
           {!imgError && member.image ? (
             <img
               src={member.image}
@@ -61,8 +59,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
         </div>
 
         {/* Name & Role */}
-        <div className="mb-3">
-          <h3 className="font-extrabold text-xl sm:text-2xl text-[#17152B] tracking-tight group-hover:text-[#5B4BFF] transition-colors">
+        <div className="mb-2.5 sm:mb-3">
+          <h3 className="font-extrabold text-xl sm:text-2xl text-[#17152B] tracking-tight group-hover:text-[#5B4BFF] transition-colors leading-tight">
             {member.name}
           </h3>
           <p className="text-xs sm:text-sm font-bold text-[#5B4BFF] mt-1 leading-snug">
@@ -71,14 +69,14 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
         </div>
 
         {/* Short Bio Description */}
-        <p className="text-xs sm:text-sm text-[#626078] font-medium leading-relaxed mb-6">
+        <p className="text-xs sm:text-sm text-[#626078] font-medium leading-relaxed mb-4 sm:mb-6">
           {member.bio}
         </p>
       </div>
 
       {/* Social Links Footer */}
       {(member.github || member.linkedin || member.x) && (
-        <div className="pt-4 border-t border-[#151326]/10 flex items-center gap-2">
+        <div className="pt-3.5 sm:pt-4 border-t border-[#151326]/10 flex items-center gap-2 mt-auto">
           {member.github && (
             <a
               href={member.github}
@@ -122,113 +120,200 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
 
 export const Team: React.FC = () => {
   const totalMembers = TEAM_MEMBERS.length;
-  const [startIndex, setStartIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(4);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Maximum items visible in one view for slider mode (>4 members)
-  const maxVisible = 4;
-  const canSlide = totalMembers > maxVisible;
+  // Responsive items per view based on screen width
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setCardsPerView(Math.min(4, totalMembers));
+      } else if (window.innerWidth >= 640) {
+        setCardsPerView(Math.min(2, totalMembers));
+      } else {
+        setCardsPerView(1);
+      }
+    };
 
-  const handlePrev = () => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [totalMembers]);
+
+  const maxIndex = Math.max(0, totalMembers - cardsPerView);
+  const canSlide = totalMembers > cardsPerView;
+
+  // Keep currentIndex clamped if cardsPerView changes
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [maxIndex, currentIndex]);
+
+  const handlePrev = useCallback(() => {
     if (!canSlide) return;
-    setStartIndex((prev) => Math.max(0, prev - 1));
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  }, [canSlide]);
+
+  const handleNext = useCallback(() => {
+    if (!canSlide) return;
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  }, [canSlide, maxIndex]);
+
+  const handleDotClick = useCallback((index: number) => {
+    setCurrentIndex(Math.min(index, maxIndex));
+  }, [maxIndex]);
+
+  // Touch / Swipe Navigation support on Mobile
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+    touchStartY.current = e.targetTouches[0].clientY;
   };
 
-  const handleNext = () => {
-    if (!canSlide) return;
-    setStartIndex((prev) => Math.min(totalMembers - maxVisible, prev + 1));
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      const endX = e.changedTouches[0].clientX;
+      const distance = touchStartX.current - endX;
+      const minSwipeDistance = 35; // Minimum px for swipe trigger
+
+      if (distance > minSwipeDistance) {
+        // Swiped Left -> go Next
+        handleNext();
+      } else if (distance < -minSwipeDistance) {
+        // Swiped Right -> go Prev
+        handlePrev();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
   };
 
-  // Determine dynamic wrapper and grid container classes for perfect centering
-  const getContainerLayout = () => {
-    switch (totalMembers) {
-      case 1:
-        return 'max-w-sm mx-auto grid grid-cols-1 gap-6 sm:gap-8 justify-center';
-      case 2:
-        return 'max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 justify-center';
-      case 3:
-        return 'max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-center';
-      case 4:
-        return 'max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 justify-center';
-      default:
-        // > 4 members: Show 4 in sliding window
-        return 'max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 justify-center';
+  // Keyboard navigation when container focused
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      handlePrev();
+    } else if (e.key === 'ArrowRight') {
+      handleNext();
     }
   };
-
-  // Visible members based on mode
-  const displayedMembers = canSlide
-    ? TEAM_MEMBERS.slice(startIndex, startIndex + maxVisible)
-    : TEAM_MEMBERS;
 
   return (
     <section
       id="team"
       aria-label="Meet the Team Behind BlueOrbit Devs"
-      className="relative bg-[#F7F7FF] text-[#17152B] py-20 sm:py-28 overflow-hidden border-t-3 border-[#151326]/10"
+      className="relative bg-[#F7F7FF] text-[#17152B] py-16 sm:py-24 md:py-28 overflow-hidden border-t-3 border-[#151326]/10"
     >
       <FloatingObject type="sparkle" top="10%" right="6%" color="#5B4BFF" animation="slow" />
       <FloatingObject type="code-tag" bottom="15%" left="4%" color="#00C2FF" animation="medium" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with optional slider navigation if > 4 members */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 sm:mb-20">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#151326]/15 text-[#5B4BFF] font-extrabold text-xs sm:text-sm tracking-wider uppercase mb-4 shadow-sm">
+        {/* Section Header with Carousel Navigation */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-16">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#151326]/15 text-[#5B4BFF] font-extrabold text-xs sm:text-sm tracking-wider uppercase mb-3 sm:mb-4 shadow-sm">
               <Users className="w-3.5 h-3.5 text-[#5B4BFF]" />
               <span>MEET THE PEOPLE</span>
             </div>
 
-            <h2 className="font-extrabold text-4xl sm:text-6xl md:text-7xl tracking-tight leading-[1.08] mb-6 text-[#17152B]">
+            <h2 className="font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.08] mb-3 sm:mb-4 text-[#17152B]">
               Behind <br />
               <span className="text-[#5B4BFF]">BlueOrbit Devs.</span>
             </h2>
 
-            <p className="text-lg sm:text-xl text-[#626078] leading-relaxed font-medium">
+            <p className="text-base sm:text-lg md:text-xl text-[#626078] leading-relaxed font-medium">
               Designers, engineers, and builders creating products that matter.
             </p>
           </div>
 
-          {/* Navigation Arrows ONLY shown when total members > 4 */}
+          {/* Navigation Controls (Shown when sliding is available for screen size) */}
           {canSlide && (
-            <div className="flex items-center gap-3 self-start md:self-end">
+            <div className="flex items-center gap-2.5 sm:gap-3 self-start sm:self-end shrink-0 pt-2 sm:pt-0">
               <button
                 type="button"
                 onClick={handlePrev}
-                disabled={startIndex === 0}
-                aria-label="Previous team members"
-                className="w-12 h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
+                disabled={currentIndex === 0}
+                aria-label="Previous team member"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
 
-              <div className="text-xs font-mono font-bold text-[#626078] px-2 select-none">
-                {startIndex + 1}-{Math.min(startIndex + maxVisible, totalMembers)} of {totalMembers}
+              <div className="text-xs sm:text-sm font-mono font-bold text-[#626078] px-1 sm:px-2 select-none min-w-[70px] text-center">
+                {cardsPerView === 1
+                  ? `${currentIndex + 1} of ${totalMembers}`
+                  : `${currentIndex + 1}-${Math.min(currentIndex + cardsPerView, totalMembers)} of ${totalMembers}`}
               </div>
 
               <button
                 type="button"
                 onClick={handleNext}
-                disabled={startIndex >= totalMembers - maxVisible}
-                aria-label="Next team members"
-                className="w-12 h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
+                disabled={currentIndex >= maxIndex}
+                aria-label="Next team member"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
           )}
         </div>
 
-        {/* Dynamically Centered Team Container */}
-        <div className={getContainerLayout()}>
-          {displayedMembers.map((member, index) => (
-            <div key={member.id || index} className="w-full flex justify-center">
-              <TeamMemberCard member={member} />
-            </div>
-          ))}
+        {/* Carousel Viewport Container with Smooth Sliding Track */}
+        <div
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="relative overflow-hidden cursor-grab active:cursor-grabbing focus:outline-none -mx-2.5 sm:-mx-3.5 px-0.5 py-2 select-none"
+          aria-roledescription="carousel"
+          aria-label="Team Members Carousel"
+        >
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{
+              transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+              willChange: 'transform'
+            }}
+          >
+            {TEAM_MEMBERS.map((member, index) => (
+              <div
+                key={member.id || index}
+                className="shrink-0 px-2.5 sm:px-3.5 flex flex-col"
+                style={{ width: `${100 / cardsPerView}%` }}
+              >
+                <div className="w-full h-full max-w-sm sm:max-w-none mx-auto">
+                  <TeamMemberCard member={member} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Pagination Indicator Dots on Mobile & Tablet */}
+        {canSlide && (
+          <div className="flex items-center justify-center gap-2 mt-8 sm:mt-10">
+            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => handleDotClick(idx)}
+                aria-label={`Go to team member ${idx + 1}`}
+                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  currentIndex === idx
+                    ? 'w-8 bg-[#5B4BFF] shadow-sm'
+                    : 'w-2.5 bg-[#151326]/20 hover:bg-[#151326]/40'
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
       </div>
     </section>
   );
 };
+
