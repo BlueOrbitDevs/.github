@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TEAM_MEMBERS } from '../data/teamData';
 import { FloatingObject } from './FloatingDecorations';
-import { Users, Github, Linkedin, Twitter, Sparkles, Code2 } from 'lucide-react';
+import { Users, Github, Linkedin, Twitter, ChevronLeft, ChevronRight } from 'lucide-react';
 import { TeamMember } from '../types';
 
 interface TeamMemberCardProps {
@@ -24,7 +24,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
 
   return (
     <div
-      className="group rounded-[28px] bg-white text-[#17152B] border-3 border-[#151326] p-6 sm:p-7 shadow-[6px_6px_0px_#151326] hover:translate-y-[-6px] hover:shadow-[10px_10px_0px_#151326] transition-all duration-300 flex flex-col justify-between h-full"
+      className="group rounded-[28px] bg-white text-[#17152B] border-3 border-[#151326] p-6 sm:p-7 shadow-[6px_6px_0px_#151326] hover:translate-y-[-6px] hover:shadow-[10px_10px_0px_#151326] transition-all duration-300 flex flex-col justify-between h-full w-full"
     >
       <div>
         {/* Large Prominent Organic Portrait Container */}
@@ -121,6 +121,45 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
 };
 
 export const Team: React.FC = () => {
+  const totalMembers = TEAM_MEMBERS.length;
+  const [startIndex, setStartIndex] = useState(0);
+
+  // Maximum items visible in one view for slider mode (>4 members)
+  const maxVisible = 4;
+  const canSlide = totalMembers > maxVisible;
+
+  const handlePrev = () => {
+    if (!canSlide) return;
+    setStartIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNext = () => {
+    if (!canSlide) return;
+    setStartIndex((prev) => Math.min(totalMembers - maxVisible, prev + 1));
+  };
+
+  // Determine dynamic wrapper and grid container classes for perfect centering
+  const getContainerLayout = () => {
+    switch (totalMembers) {
+      case 1:
+        return 'max-w-sm mx-auto grid grid-cols-1 gap-6 sm:gap-8 justify-center';
+      case 2:
+        return 'max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 justify-center';
+      case 3:
+        return 'max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-center';
+      case 4:
+        return 'max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 justify-center';
+      default:
+        // > 4 members: Show 4 in sliding window
+        return 'max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 justify-center';
+    }
+  };
+
+  // Visible members based on mode
+  const displayedMembers = canSlide
+    ? TEAM_MEMBERS.slice(startIndex, startIndex + maxVisible)
+    : TEAM_MEMBERS;
+
   return (
     <section
       id="team"
@@ -132,27 +171,60 @@ export const Team: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mb-14 sm:mb-20">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#151326]/15 text-[#5B4BFF] font-extrabold text-xs sm:text-sm tracking-wider uppercase mb-4 shadow-sm">
-            <Users className="w-3.5 h-3.5 text-[#5B4BFF]" />
-            <span>MEET THE PEOPLE</span>
+        {/* Section Header with optional slider navigation if > 4 members */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 sm:mb-20">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#151326]/15 text-[#5B4BFF] font-extrabold text-xs sm:text-sm tracking-wider uppercase mb-4 shadow-sm">
+              <Users className="w-3.5 h-3.5 text-[#5B4BFF]" />
+              <span>MEET THE PEOPLE</span>
+            </div>
+
+            <h2 className="font-extrabold text-4xl sm:text-6xl md:text-7xl tracking-tight leading-[1.08] mb-6 text-[#17152B]">
+              Behind <br />
+              <span className="text-[#5B4BFF]">BlueOrbit Devs.</span>
+            </h2>
+
+            <p className="text-lg sm:text-xl text-[#626078] leading-relaxed font-medium">
+              Designers, engineers, and builders creating products that matter.
+            </p>
           </div>
 
-          <h2 className="font-extrabold text-4xl sm:text-6xl md:text-7xl tracking-tight leading-[1.08] mb-6 text-[#17152B]">
-            Behind <br />
-            <span className="text-[#5B4BFF]">BlueOrbit Devs.</span>
-          </h2>
+          {/* Navigation Arrows ONLY shown when total members > 4 */}
+          {canSlide && (
+            <div className="flex items-center gap-3 self-start md:self-end">
+              <button
+                type="button"
+                onClick={handlePrev}
+                disabled={startIndex === 0}
+                aria-label="Previous team members"
+                className="w-12 h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
 
-          <p className="text-lg sm:text-xl text-[#626078] leading-relaxed font-medium">
-            Designers, engineers, and builders creating products that matter.
-          </p>
+              <div className="text-xs font-mono font-bold text-[#626078] px-2 select-none">
+                {startIndex + 1}-{Math.min(startIndex + maxVisible, totalMembers)} of {totalMembers}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleNext}
+                disabled={startIndex >= totalMembers - maxVisible}
+                aria-label="Next team members"
+                className="w-12 h-12 rounded-full bg-white border-2 border-[#151326] shadow-[3px_3px_0px_#151326] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#151326] active:translate-y-0 active:shadow-[2px_2px_0px_#151326] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[3px_3px_0px_#151326] transition-all flex items-center justify-center text-[#17152B] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5B4BFF]"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Team Grid: 4 on Desktop, 2 on Tablet, 1 on Mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {TEAM_MEMBERS.map((member, index) => (
-            <TeamMemberCard key={member.id || index} member={member} />
+        {/* Dynamically Centered Team Container */}
+        <div className={getContainerLayout()}>
+          {displayedMembers.map((member, index) => (
+            <div key={member.id || index} className="w-full flex justify-center">
+              <TeamMemberCard member={member} />
+            </div>
           ))}
         </div>
 
