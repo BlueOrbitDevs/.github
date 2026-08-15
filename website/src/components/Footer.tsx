@@ -44,9 +44,9 @@ export const Footer: React.FC = () => {
   const caseStudyLinks = [
     { name: 'CoupleFlix Media Mesh', path: '/work' },
     { name: 'SecureAuth MFA Protocol', path: '/work' },
-    { name: 'PhantomGram Ephemeral Engine', path: '/work' },
+    /*{ name: 'PhantomGram Ephemeral Engine', path: '/work' },
     { name: 'NoteNDo CRDT Canvas', path: '/work' },
-    { name: 'TextSnap Snippet Engine', path: '/work' }
+    { name: 'TextSnap Snippet Engine', path: '/work' }*/
   ];
 
   // Active and easily extensible social media links
