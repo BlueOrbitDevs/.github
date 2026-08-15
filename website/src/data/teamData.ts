@@ -74,7 +74,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: 'Tester & QA Engineer',
     bio: 'Ensuring software quality through comprehensive testing and quality assurance processes.',
     image: './assets/photo-1506744038956-a3ceca72a2c3.png?auto=format&fit=crop&w=600&h=700&q=80',
-    avatarColor: '#FFC107',
+    avatarColor: '#F8ECE2',
     github: 'https://github.com/taraknath341',
     linkedin: 'https://linkedin.com/in/taraknathkaran',
     x: 'https://x.com/taraknathkaran'
