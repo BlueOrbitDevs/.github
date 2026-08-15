@@ -113,7 +113,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
                 />
-                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">Excellence 2024</span>
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">Excellence 2026</span>
               </div>
               <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
                 <img
@@ -251,7 +251,7 @@ export const DataSecurityPracticesPage: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <h3 className="font-extrabold text-sm sm:text-base text-[#17152B]">Cybersecurity Excellence Awards 2024 Recognition</h3>
+                      <h3 className="font-extrabold text-sm sm:text-base text-[#17152B]">Cybersecurity Excellence Awards 2026 Recognition</h3>
                       <p className="text-xs sm:text-sm text-[#626078] mt-1">
                         Recognized for exemplary innovation and modern application security practices across cloud-native developer pipelines and web applications.
                       </p>
