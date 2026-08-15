@@ -57,7 +57,7 @@ export const Footer: React.FC = () => {
     hoverBg?: string;
   }[] = [
     { name: 'GitHub', href: 'https://github.com/blueorbitdevs', icon: <Github className="w-5 h-5" />, hoverBg: 'hover:bg-[#151326] hover:text-white' },
-    { name: 'LinkedIn', href: 'https://linkedin.com', icon: <Linkedin className="w-5 h-5" />, hoverBg: 'hover:bg-[#0077B5] hover:text-white' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/blueorbitdevs', icon: <Linkedin className="w-5 h-5" />, hoverBg: 'hover:bg-[#0077B5] hover:text-white' },
     { name: 'X / Twitter', href: 'https://x.com', icon: <Twitter className="w-5 h-5" />, hoverBg: 'hover:bg-[#151326] hover:text-white' },
     // Uncomment or add any of the following whenever needed:
     // { name: 'Instagram', href: 'https://instagram.com/blueorbitdevs', icon: <Instagram className="w-5 h-5" />, hoverBg: 'hover:bg-[#E1306C] hover:text-white' },
