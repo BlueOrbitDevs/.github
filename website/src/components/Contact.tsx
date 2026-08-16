@@ -16,7 +16,7 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
     email: '',
     company: '',
     projectType: initialService || 'Web Application',
-    budget: '$5k - $15k',
+    budget: '₹5k - ₹15k',
     timeline: '1 - 2 Months',
     message: ''
   });
@@ -36,10 +36,10 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
   ];
 
   const budgetOptions = [
-    'Under $5k',
-    '$5k - $15k',
-    '$15k - $30k',
-    '$30k+'
+    'Under ₹5k',
+    '₹5k - ₹15k',
+    '₹15k - ₹30k',
+    '₹30k+'
   ];
 
   const timelineOptions = [
@@ -108,7 +108,7 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
       email: '',
       company: '',
       projectType: 'Web Application',
-      budget: '$5k - $15k',
+      budget: '₹5k - ₹15k',
       timeline: '1 - 2 Months',
       message: ''
     });
