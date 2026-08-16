@@ -97,7 +97,7 @@ export const Footer: React.FC = () => {
             </a>
 
             {/* Badges row under logo */}
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex items-center gap-3 pt-1 flex-wrap">
               <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center select-none">
                 <img
                   src="./assets/badge/SOS.svg"
@@ -110,6 +110,18 @@ export const Footer: React.FC = () => {
                   onDragStart={(e) => e.preventDefault()}
                 />
               </div>
+              {/*<div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center select-none">
+                <img
+                  src="./assets/badge/MSME.webp"
+                  alt="MSME Registered"
+                  className="h-10 sm:h-12 w-auto object-contain select-none pointer-events-none"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
+                />
+              </div>*/}
               <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center select-none">
                 <img
                   src="./assets/badge/CYBERSECURITY_2026.webp"
