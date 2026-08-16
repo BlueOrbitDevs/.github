@@ -19,7 +19,10 @@ export const BlueOrbitLogo: React.FC<{ className?: string; size?: number; varian
         src="./assets/brand-logo.png"
         alt="BlueOrbit Devs Logo"
         referrerPolicy="no-referrer"
-        className="w-full h-full object-contain p-0.5 select-none"
+        draggable={false}
+        onContextMenu={(e) => e.preventDefault()}
+        onDragStart={(e) => e.preventDefault()}
+        className="w-full h-full object-contain p-0.5 select-none pointer-events-none"
       />
     </div>
   );

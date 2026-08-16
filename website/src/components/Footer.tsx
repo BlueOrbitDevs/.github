@@ -98,31 +98,40 @@ export const Footer: React.FC = () => {
 
             {/* Badges row under logo */}
             <div className="flex items-center gap-3 pt-1">
-              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
+              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center select-none">
                 <img
                   src="./assets/badge/SOS.svg"
                   alt="AICPA SOC"
-                  className="h-10 sm:h-12 w-auto object-contain"
+                  className="h-10 sm:h-12 w-auto object-contain select-none pointer-events-none"
                   loading="lazy"
                   referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
               </div>
-              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
+              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center select-none">
                 <img
                   src="./assets/badge/CYBERSECURITY_2026.webp"
                   alt="Cybersecurity Excellence Awards 2024"
-                  className="h-10 sm:h-12 w-auto object-contain"
+                  className="h-10 sm:h-12 w-auto object-contain select-none pointer-events-none"
                   loading="lazy"
                   referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
               </div>
-              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center">
+              <div className="bg-white/15 hover:bg-white/25 p-2 sm:p-2.5 rounded-xl border border-white/30 shadow-sm transition-all duration-200 hover:scale-105 flex items-center justify-center select-none">
                 <img
                   src="./assets/badge/AWS.webp"
                   alt="AWS Partner"
-                  className="h-10 sm:h-12 w-auto object-contain"
+                  className="h-10 sm:h-12 w-auto object-contain select-none pointer-events-none"
                   loading="lazy"
                   referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
               </div>
             </div>

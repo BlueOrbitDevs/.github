@@ -145,7 +145,10 @@ export const Projects: React.FC = () => {
                     src={project.image}
                     alt={project.title}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    onDragStart={(e) => e.preventDefault()}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 select-none pointer-events-none"
                   />
                 ) : (
                   <div

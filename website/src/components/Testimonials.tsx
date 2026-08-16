@@ -26,14 +26,17 @@ const ReviewerAvatar: React.FC<ReviewerAvatarProps> = ({ testimonial }) => {
 
   if (showImage) {
     return (
-      <div className="w-12 h-12 rounded-full border-2 border-[#151326] overflow-hidden shadow-[2px_2px_0px_#151326] shrink-0 bg-[#F0EEFF]">
+      <div className="w-12 h-12 rounded-full border-2 border-[#151326] overflow-hidden shadow-[2px_2px_0px_#151326] shrink-0 bg-[#F0EEFF] select-none pointer-events-none">
         <img
           src={testimonial.image}
           alt={testimonial.name}
           onError={() => setHasError(true)}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover select-none pointer-events-none"
           loading="lazy"
           referrerPolicy="no-referrer"
+          draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
+          onDragStart={(e) => e.preventDefault()}
         />
       </div>
     );

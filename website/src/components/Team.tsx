@@ -151,15 +151,18 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member }) => {
     <div className="group rounded-[28px] bg-white text-[#17152B] border-3 border-[#151326] p-5 sm:p-7 shadow-[6px_6px_0px_#151326] hover:translate-y-[-4px] sm:hover:translate-y-[-6px] hover:shadow-[10px_10px_0px_#151326] transition-all duration-300 flex flex-col justify-between h-full w-full select-none">
       <div>
         {/* Prominent Organic Portrait Container */}
-        <div className="relative mb-4 sm:mb-6 rounded-[22px] overflow-hidden border-2 border-[#151326] shadow-[3px_3px_0px_#151326] aspect-[4/4.6] bg-[#F0EEFF] flex items-center justify-center">
+        <div className="relative mb-4 sm:mb-6 rounded-[22px] overflow-hidden border-2 border-[#151326] shadow-[3px_3px_0px_#151326] aspect-[4/4.6] bg-[#F0EEFF] flex items-center justify-center select-none pointer-events-none">
           {!imgError && member.image ? (
             <img
               src={member.image}
               alt={member.name}
               onError={() => setImgError(true)}
-              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out select-none"
+              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out select-none pointer-events-none"
               loading="lazy"
               referrerPolicy="no-referrer"
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
             />
           ) : (
             <div

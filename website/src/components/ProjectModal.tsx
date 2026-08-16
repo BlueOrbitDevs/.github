@@ -94,12 +94,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         <div className="p-4 sm:p-8 md:p-10 overflow-y-auto space-y-6 sm:space-y-8">
           {/* Project Preview Banner */}
           {project.image && (
-            <div className="w-full aspect-[16/9] sm:aspect-[21/9] rounded-xl sm:rounded-2xl overflow-hidden border-2 border-[#151326] shadow-[3px_3px_0px_#151326] sm:shadow-[4px_4px_0px_#151326] relative">
+            <div className="w-full aspect-[16/9] sm:aspect-[21/9] rounded-xl sm:rounded-2xl overflow-hidden border-2 border-[#151326] shadow-[3px_3px_0px_#151326] sm:shadow-[4px_4px_0px_#151326] relative select-none pointer-events-none">
               <img
                 src={project.image}
                 alt={project.title}
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
+                onDragStart={(e) => e.preventDefault()}
+                className="w-full h-full object-cover select-none pointer-events-none"
               />
             </div>
           )}
