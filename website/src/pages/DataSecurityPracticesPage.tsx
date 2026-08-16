@@ -93,45 +93,57 @@ export const DataSecurityPracticesPage: React.FC = () => {
 
           {/* Badges showcase row in header */}
           <div className="mt-10 pt-8 border-t border-white/15 flex flex-wrap items-center gap-3 sm:gap-6">
-            <span className="text-xs font-mono uppercase tracking-wider text-white/60 font-bold w-full sm:w-auto">
+            <span className="text-xs font-mono uppercase tracking-wider text-white/60 font-bold w-full sm:w-auto select-none">
               Verified Compliance & Accreditations:
             </span>
-            <div className="flex items-center gap-2.5 sm:gap-4 flex-wrap">
-              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="AICPA SOC">
+            <div className="flex items-center gap-2.5 sm:gap-4 flex-wrap select-none">
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105 select-none" title="AICPA SOC">
                 <img
                   src="./assets/badge/SOS.svg"
                   alt="AICPA SOC"
-                  className="h-8 sm:h-9 w-auto object-contain"
+                  className="h-8 sm:h-9 w-auto object-contain select-none pointer-events-none"
                   referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
-                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">AICPA SOC</span>
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline select-none">AICPA SOC</span>
               </div>
-              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="MSME Registered">
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105 select-none" title="MSME Registered">
                 <img
                   src="./assets/badge/MSME.webp"
                   alt="MSME Registered"
-                  className="h-8 sm:h-9 w-auto object-contain"
+                  className="h-8 sm:h-9 w-auto object-contain select-none pointer-events-none"
                   referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
-                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">MSME Registered</span>
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline select-none">MSME Registered</span>
               </div>
-              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="Cybersecurity Excellence 2026">
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105 select-none" title="Cybersecurity Excellence 2026">
                 <img
                   src="./assets/badge/CYBERSECURITY_2026.webp"
                   alt="Cybersecurity Excellence Awards"
-                  className="h-8 sm:h-9 w-auto object-contain"
+                  className="h-8 sm:h-9 w-auto object-contain select-none pointer-events-none"
                   referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
-                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">Excellence 2026</span>
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline select-none">Excellence 2026</span>
               </div>
-              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="AWS Partner">
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105 select-none" title="AWS Partner">
                 <img
                   src="./assets/badge/AWS.webp"
                   alt="AWS Partner"
-                  className="h-8 sm:h-9 w-auto object-contain"
+                  className="h-8 sm:h-9 w-auto object-contain select-none pointer-events-none"
                   referrerPolicy="no-referrer"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
                 />
-                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">AWS Partner</span>
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline select-none">AWS Partner</span>
               </div>
             </div>
           </div>
@@ -233,13 +245,16 @@ export const DataSecurityPracticesPage: React.FC = () => {
                   We adhere to internationally recognized security frameworks and third-party audit standards:
                 </p>
                 <div className="space-y-3">
-                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
-                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
+                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4 select-none">
+                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0 select-none">
                       <img
                         src="./assets/badge/SOS.svg"
                         alt="AICPA SOC"
-                        className="h-8 w-auto object-contain"
+                        className="h-8 w-auto object-contain select-none pointer-events-none"
                         referrerPolicy="no-referrer"
+                        draggable={false}
+                        onContextMenu={(e) => e.preventDefault()}
+                        onDragStart={(e) => e.preventDefault()}
                       />
                     </div>
                     <div>
@@ -250,13 +265,16 @@ export const DataSecurityPracticesPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
-                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
+                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4 select-none">
+                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0 select-none">
                       <img
                         src="./assets/badge/MSME.webp"
                         alt="MSME Registered"
-                        className="h-8 w-auto object-contain"
+                        className="h-8 w-auto object-contain select-none pointer-events-none"
                         referrerPolicy="no-referrer"
+                        draggable={false}
+                        onContextMenu={(e) => e.preventDefault()}
+                        onDragStart={(e) => e.preventDefault()}
                       />
                     </div>
                     <div>
@@ -267,13 +285,16 @@ export const DataSecurityPracticesPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
-                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
+                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4 select-none">
+                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0 select-none">
                       <img
                         src="./assets/badge/CYBERSECURITY_2026.webp"
                         alt="Cybersecurity Excellence Awards 2024"
-                        className="h-8 w-auto object-contain"
+                        className="h-8 w-auto object-contain select-none pointer-events-none"
                         referrerPolicy="no-referrer"
+                        draggable={false}
+                        onContextMenu={(e) => e.preventDefault()}
+                        onDragStart={(e) => e.preventDefault()}
                       />
                     </div>
                     <div>
@@ -284,13 +305,16 @@ export const DataSecurityPracticesPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
-                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
+                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4 select-none">
+                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0 select-none">
                       <img
                         src="./assets/badge/AWS.webp"
                         alt="AWS Partner"
-                        className="h-8 w-auto object-contain"
+                        className="h-8 w-auto object-contain select-none pointer-events-none"
                         referrerPolicy="no-referrer"
+                        draggable={false}
+                        onContextMenu={(e) => e.preventDefault()}
+                        onDragStart={(e) => e.preventDefault()}
                       />
                     </div>
                     <div>
