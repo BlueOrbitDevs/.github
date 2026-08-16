@@ -59,7 +59,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: '6',
-    name: 'Sanjima Biswas',
+    name: 'Amrapali Goswami',
     role: 'UX/UI Designer',
     bio: 'Creating intuitive and visually appealing user interfaces with a focus on enhancing user experience.',
     image: './assets/photo-5478541905240-472988babdf9.png?auto=format&fit=crop&w=600&h=700&q=80',
