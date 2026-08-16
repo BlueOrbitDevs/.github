@@ -50,8 +50,8 @@ export const CustomCursor: React.FC = () => {
     if (!enabled) return;
 
     const updatePosition = () => {
-      // 0.6 interpolation factor for snappy yet buttery smooth movement
-      const ease = 0.6;
+      // 0.88 interpolation factor for ultra-fast, zero-lag tracking with fluid motion
+      const ease = 0.88;
       currentPos.current.x += (mousePos.current.x - currentPos.current.x) * ease;
       currentPos.current.y += (mousePos.current.y - currentPos.current.y) * ease;
 
@@ -88,7 +88,7 @@ export const CustomCursor: React.FC = () => {
       // If auto-scrolling, update scroll direction based on offset from origin
       if (isAutoScrollingRef.current && originPosRef.current) {
         const deltaY = e.clientY - originPosRef.current.y;
-        const deadZone = 8;
+        const deadZone = 6;
         if (deltaY < -deadZone) {
           setScrollDirection('up');
         } else if (deltaY > deadZone) {
@@ -244,22 +244,22 @@ export const CustomCursor: React.FC = () => {
 
       const deltaY = mousePos.current.y - originPosRef.current.y;
       const deltaX = mousePos.current.x - originPosRef.current.x;
-      const deadZone = 8;
+      const deadZone = 6;
 
       let speedY = 0;
       let speedX = 0;
 
       if (Math.abs(deltaY) > deadZone) {
         const offset = Math.abs(deltaY) - deadZone;
-        // Non-linear acceleration curve for intuitive precision and fast long-distance scrolling
+        // Fast, progressive velocity curve matching native desktop browser feel
         const direction = Math.sign(deltaY);
-        speedY = direction * Math.min(Math.pow(offset / 12, 1.35), 45);
+        speedY = direction * Math.min(offset * 0.35 + Math.pow(offset / 7.5, 1.42), 85);
       }
 
       if (Math.abs(deltaX) > deadZone) {
         const offset = Math.abs(deltaX) - deadZone;
         const direction = Math.sign(deltaX);
-        speedX = direction * Math.min(Math.pow(offset / 14, 1.3), 35);
+        speedX = direction * Math.min(offset * 0.3 + Math.pow(offset / 9, 1.35), 65);
       }
 
       if (speedY !== 0 || speedX !== 0) {
