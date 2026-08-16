@@ -48,14 +48,14 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: '5',
-    name: 'Sayan Chouni',
+    name: 'Jaswant Lohmror',
     role: 'Product Manager',
     bio: 'Driving user-centric product strategies and leading cross-functional teams to deliver innovative solutions.',
     image: './assets/photo-1954260138956-a3ceca72a2c3.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FFC107',
-    github: 'https://github.com/SayanChouni',
-    linkedin: 'https://www.linkedin.com/in/sayan-chouni-b6a208321',
-    x: 'https://x.com/SayanChouni'
+    github: 'https://github.com/jasu-dev',
+    //linkedin: 'http://linkedin.com/jasu-dev',
+    //x: 'https://x.com/jasu-dev'
   },
   {
     id: '6',
