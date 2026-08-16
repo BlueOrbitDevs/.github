@@ -67,7 +67,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     github: 'https://github.com/Amrapali-27',
     linkedin: 'https://www.linkedin.com/in/amrapali-goswami',
     //x: 'https://x.com/sanjimabiswas'
-  }
+  },
  {
     id: '7',
     name: 'Taraknath Karan',
