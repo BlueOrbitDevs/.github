@@ -54,20 +54,20 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: './assets/photo-1954260138956-a3ceca72a2c3.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FFC107',
     github: 'https://github.com/SayanChouni',
-    linkedin: 'https://www.linkedin.com/in/sayan-chouni-b6a208321',
+    linkedin: 'https://www.linkedin.com/in/sanjima-biswas987415',
     x: 'https://x.com/SayanChouni'
   },
-  /*{
+  {
     id: '6',
-    name: 'Emily Davis',
+    name: 'Sanjima Biswas',
     role: 'UX/UI Designer',
     bio: 'Creating intuitive and visually appealing user interfaces with a focus on enhancing user experience.',
-    image: './assets/photo-1517841905240-472988babdf9.png?auto=format&fit=crop&w=600&h=700&q=80',
+    image: './assets/photo-5478541905240-472988babdf9.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FF5722',
-    github: 'https://github.com/emilydavis',
-    linkedin: 'https://linkedin.com/in/emilydavis',
-    x: 'https://x.com/emilydavis'
-  }*/
+    github: 'https://github.com/Amrapali-27',
+    linkedin: 'https://www.linkedin.com/in/amrapali-goswami',
+    //x: 'https://x.com/sanjimabiswas'
+  }
  {
     id: '7',
     name: 'Taraknath Karan',
