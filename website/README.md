@@ -252,7 +252,7 @@ The 404 page is intentionally preserved as part of the website experience.
 # Preview
 
 <p align="center">
-  <img src="./public/screenshots/preview.png" alt="BlueOrbit Devs Website Preview" width="850">
+  <img src="./public/screenshots/preview.webp" alt="BlueOrbit Devs Website Preview" width="850">
 </p>
 
 ---
