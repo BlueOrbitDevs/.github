@@ -92,37 +92,46 @@ export const DataSecurityPracticesPage: React.FC = () => {
           </div>
 
           {/* Badges showcase row in header */}
-          <div className="mt-10 pt-8 border-t border-white/15 flex flex-wrap items-center gap-4 sm:gap-6">
-            <span className="text-xs font-mono uppercase tracking-wider text-white/60 font-bold">
+          <div className="mt-10 pt-8 border-t border-white/15 flex flex-wrap items-center gap-3 sm:gap-6">
+            <span className="text-xs font-mono uppercase tracking-wider text-white/60 font-bold w-full sm:w-auto">
               Verified Compliance & Accreditations:
             </span>
-            <div className="flex items-center gap-4">
-              <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
+            <div className="flex items-center gap-2.5 sm:gap-4 flex-wrap">
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="AICPA SOC">
                 <img
                   src="./assets/badge/SOS.svg"
                   alt="AICPA SOC"
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
                 />
-                <span className="text-xs sm:text-sm font-extrabold text-white">AICPA SOC</span>
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">AICPA SOC</span>
               </div>
-              <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="MSME Registered">
+                <img
+                  src="./assets/badge/MSME.webp"
+                  alt="MSME Registered"
+                  className="h-8 sm:h-9 w-auto object-contain"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">MSME Registered</span>
+              </div>
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="Cybersecurity Excellence 2026">
                 <img
                   src="./assets/badge/CYBERSECURITY_2026.webp"
-                  alt="Cybersecurity Excellence Awards 2024"
+                  alt="Cybersecurity Excellence Awards"
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
                 />
                 <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">Excellence 2026</span>
               </div>
-              <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm">
+              <div className="bg-white/10 p-2 sm:px-3.5 sm:py-2 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-sm transition-transform hover:scale-105" title="AWS Partner">
                 <img
                   src="./assets/badge/AWS.webp"
                   alt="AWS Partner"
                   className="h-8 sm:h-9 w-auto object-contain"
                   referrerPolicy="no-referrer"
                 />
-                <span className="text-xs sm:text-sm font-extrabold text-white">AWS Partner</span>
+                <span className="text-xs sm:text-sm font-extrabold text-white hidden sm:inline">AWS Partner</span>
               </div>
             </div>
           </div>
@@ -237,6 +246,23 @@ export const DataSecurityPracticesPage: React.FC = () => {
                       <h3 className="font-extrabold text-sm sm:text-base text-[#17152B]">AICPA SOC Trust Services Criteria</h3>
                       <p className="text-xs sm:text-sm text-[#626078] mt-1">
                         Our operational practices and cloud engineering baselines align with AICPA SOC security, availability, and confidentiality trust services principles.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-[#F7F7FF] border-2 border-[#E0DEF7] flex items-start gap-4">
+                    <div className="p-2 bg-white rounded-xl border border-[#E0DEF7] shadow-sm shrink-0">
+                      <img
+                        src="./assets/badge/MSME.webp"
+                        alt="MSME Registered"
+                        className="h-8 w-auto object-contain"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-extrabold text-sm sm:text-base text-[#17152B]">MSME Registered Enterprise</h3>
+                      <p className="text-xs sm:text-sm text-[#626078] mt-1">
+                        Formally recognized and registered under the Ministry of Micro, Small & Medium Enterprises (MSME), complying with enterprise business operational integrity, statutory transparency, and secure digital development protocols.
                       </p>
                     </div>
                   </div>
