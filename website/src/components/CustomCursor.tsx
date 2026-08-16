@@ -66,6 +66,16 @@ export const CustomCursor: React.FC = () => {
 
     const onMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
+
+      // Check if hovering over an iframe or element marked with data-hide-cursor
+      const target = e.target as HTMLElement | null;
+      const isIframe = target?.tagName === 'IFRAME' || Boolean(target?.closest('[data-hide-cursor="true"], iframe'));
+
+      if (isIframe) {
+        if (visible) setVisible(false);
+        return;
+      }
+
       if (!visible) setVisible(true);
 
       // Track drag distance if middle button is held
@@ -88,7 +98,6 @@ export const CustomCursor: React.FC = () => {
         }
       } else {
         // Check if hovering over interactive element
-        const target = e.target as HTMLElement | null;
         if (target) {
           const isInteractive = Boolean(
             target.closest(
@@ -176,13 +185,29 @@ export const CustomCursor: React.FC = () => {
       }
     };
 
+    const onIframeHide = () => {
+      setVisible(false);
+    };
+
+    const onIframeShow = () => {
+      setVisible(true);
+    };
+
+    const onWindowBlur = () => {
+      stopAutoScroll();
+      // If focus moves to an iframe or outside window, hide custom cursor
+      setVisible(false);
+    };
+
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     window.addEventListener('mousedown', onMouseDown, { capture: true });
     window.addEventListener('mouseup', onMouseUp, { capture: true });
     window.addEventListener('auxclick', onAuxClick, { capture: true });
     window.addEventListener('wheel', onWheel, { passive: true });
     window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('blur', stopAutoScroll);
+    window.addEventListener('blur', onWindowBlur);
+    window.addEventListener('iframe-cursor-hide', onIframeHide);
+    window.addEventListener('iframe-cursor-show', onIframeShow);
     document.documentElement.addEventListener('mouseleave', onMouseLeave);
     document.documentElement.addEventListener('mouseenter', onMouseEnter);
 
@@ -196,7 +221,9 @@ export const CustomCursor: React.FC = () => {
       window.removeEventListener('auxclick', onAuxClick, { capture: true });
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('blur', stopAutoScroll);
+      window.removeEventListener('blur', onWindowBlur);
+      window.removeEventListener('iframe-cursor-hide', onIframeHide);
+      window.removeEventListener('iframe-cursor-show', onIframeShow);
       document.documentElement.removeEventListener('mouseleave', onMouseLeave);
       document.documentElement.removeEventListener('mouseenter', onMouseEnter);
     };

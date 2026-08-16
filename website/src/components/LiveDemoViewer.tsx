@@ -446,15 +446,31 @@ export const LiveDemoViewer: React.FC<LiveDemoViewerProps> = ({
           {/* ========================================================================= */}
           {/* THE IFRAME ELEMENT (Untouched) */}
           {/* ========================================================================= */}
-          <div className="w-full h-full relative flex-grow overflow-hidden bg-white">
+          <div
+            data-hide-cursor="true"
+            className="w-full h-full relative flex-grow overflow-hidden bg-white"
+            onMouseEnter={() => {
+              window.dispatchEvent(new CustomEvent('iframe-cursor-hide'));
+            }}
+            onMouseLeave={() => {
+              window.dispatchEvent(new CustomEvent('iframe-cursor-show'));
+            }}
+          >
             <iframe
               key={iframeKey}
               ref={iframeRef}
               src={activeUrl}
               title={`${project.title} Live Demo`}
               className="w-full h-full border-0 bg-white block"
+              data-hide-cursor="true"
               allow="accelerometer; camera; encrypted-media; geolocation; gyroscope; microphone; midi; payment; usb; xr-spatial-tracking"
               sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-downloads"
+              onMouseEnter={() => {
+                window.dispatchEvent(new CustomEvent('iframe-cursor-hide'));
+              }}
+              onMouseLeave={() => {
+                window.dispatchEvent(new CustomEvent('iframe-cursor-show'));
+              }}
               onLoad={() => {
                 setIsLoading(false);
               }}
