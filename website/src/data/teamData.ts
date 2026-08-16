@@ -26,13 +26,13 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     id: '3',
-    name: 'Arghya Ghoshal',
+    name: 'Ajith K V',
     role: 'Senior Full-Stack & Real-Time Engineer',
     bio: 'Obsessed with sub-50ms WebSocket latency, reactive client state machines, and edge-native computation.',
     image: './assets/photo-1500403211169-0a1dd7228f2d.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#FF4FA3',
-    github: 'https://github.com/vk-arghya',
-    linkedin: 'https://www.linkedin.com/in/arghya-ghoshal-56527529a',
+    github: 'https://github.com/AJAjith0503',
+    linkedin: 'https://www.linkedin.com/in/ajith-k-v-aj1484',
     //x: 'https://x.com'
   },
   {
