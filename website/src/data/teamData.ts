@@ -40,11 +40,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: 'Mk Hossein',
     role: 'Cloud Infrastructure & Security Lead',
     bio: 'Architecting zero-downtime serverless clouds, automated CI/CD delivery pipelines, and hardened APIs.',
-    image: './assets/photo-1500648767791-00dcc994a43e.png?auto=format&fit=crop&w=600&h=700&q=80',
+    image: './assets/photo-9541248767791-00dcc994a43e.png?auto=format&fit=crop&w=600&h=700&q=80',
     avatarColor: '#55D88A',
     github: 'https://github.com/mkhossainx',
     //linkedin: 'https://linkedin.com',
-    //x: 'https://x.com'
+    x: 'https://x.com/legendhossain'
   },
   {
     id: '5',
