@@ -73,11 +73,17 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       }
     }
 
-    // If currently on a standalone page, navigate back to home with the path
-    const isStandalonePage = location.pathname === '/privacy-policy' || location.pathname === '/data-security-practices';
-    if (isStandalonePage) {
+    // Check if the current route is one of the home section routes
+    const isCurrentOnHome = SECTIONS.some((s) => s.path === location.pathname);
+
+    // If currently NOT on a home section route (e.g. 404 NotFound page, privacy policy, data security practices),
+    // navigate to the target home route so React Router switches to HomePage
+    if (!isCurrentOnHome) {
       setActivePath(targetSection.path);
       navigate(targetSection.path);
+      if (targetSection.path === '/' || targetSection.id === 'hero') {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
       return;
     }
 
@@ -135,23 +141,52 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       return;
     }
 
+    const matchedSection = SECTIONS.find((s) => s.path === currentPath);
+    if (!matchedSection) {
+      // 404 Route
+      setActivePath('');
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (currentPath === '/') {
-      if (window.scrollY > 200) {
-        // user scrolled down, scroll spy will handle
+      setActivePath('/');
+      if (window.scrollY > 100 && !isProgrammaticScrollRef.current) {
+        // user scrolled down, keep position
       } else {
-        setActivePath('/');
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       }
       return;
     }
 
-    const matchedSection = SECTIONS.find((s) => s.path === currentPath);
-    if (matchedSection) {
-      const timer = setTimeout(() => {
-        scrollToSection(matchedSection.path, false);
-      }, 100);
-      return () => clearTimeout(timer);
+    setActivePath(matchedSection.path);
+    const executeScroll = () => {
+      const element = document.getElementById(matchedSection.id);
+      if (element) {
+        const navbarOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navbarOffset;
+
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth',
+        });
+        return true;
+      }
+      return false;
+    };
+
+    if (!executeScroll()) {
+      const timer1 = setTimeout(executeScroll, 60);
+      const timer2 = setTimeout(executeScroll, 180);
+      const timer3 = setTimeout(executeScroll, 350);
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
+      };
     }
-  }, [location.pathname, scrollToSection]);
+  }, [location.pathname]);
 
   // Handle browser back / forward buttons (popstate)
   useEffect(() => {
@@ -185,9 +220,9 @@ export const SectionNavProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setIsScrolled(false);
       }
 
-      // Do not run scroll spy on standalone pages
-      const isStandalone = window.location.pathname === '/privacy-policy' || window.location.pathname === '/data-security-practices';
-      if (isStandalone) return;
+      // Do not run scroll spy on non-home pages (such as 404, privacy policy, data security practices)
+      const isHome = SECTIONS.some((s) => s.path === window.location.pathname);
+      if (!isHome) return;
 
       if (isProgrammaticScrollRef.current) return;
 
