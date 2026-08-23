@@ -1,0 +1,7 @@
+# Robots.txt for BlueOrbit Devs (https://blueorbitdevs.org)
+User-agent: *
+Allow: /
+
+# Sitemaps & LLM Context
+Sitemap: https://blueorbitdevs.org/sitemap.xml
+# LLMs Info: https://blueorbitdevs.org/llms.txt
