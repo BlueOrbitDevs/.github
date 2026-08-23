@@ -1,0 +1,43 @@
+# BlueOrbit Devs
+> Creative technology studio and software development brand building high-performance web applications, distributed real-time systems, zero-trust security infrastructure, and digital products.
+
+## Core Products & Showcase
+- [CoupleFlix](https://coupleflix.in): Synchronized watch-together platform featuring sub-50ms audio/video sync, WebRTC peer-to-peer data channels, and live spatial reaction rooms.
+- [SecureAuth](https://secureauth.govt.hu): Zero-Trust authentication and identity vault featuring biometric WebAuthn Passkeys, encrypted TOTP provisioning, and anomaly risk engines.
+
+## Services & Technical Capabilities
+- [Product Strategy & Architecture](/services): System architecture blueprints, technical evaluation, MVP roadmapping, and data flow modeling.
+- [UI/UX Engineering & Design Systems](/services): Bespoke design systems, micro-interactions, physics, and WCAG AA accessibility.
+- [Modern Web Application Development](/services): Ultra-fast SPA & SSR web applications with React, Next.js, and TypeScript.
+- [Backend & High-Throughput APIs](/services): REST, GraphQL, and gRPC backends with strict validation, JWT/OAuth2/WebAuthn auth, and webhook pipelines.
+- [Real-Time & Collaborative Systems](/services): Low-latency WebSockets, WebRTC audio/video mesh, multiplayer state sync, and CRDTs.
+- [Cloud Infrastructure & DevOps](/services): Container orchestration (Docker), CI/CD pipelines, edge networks, and observability monitoring.
+- [Workflow & Process Automation](/services): Distributed background job queues (BullMQ/Redis), webhook routers, and media transcoding pipelines.
+- [AI & Intelligent Product Integrations](/services): LLM prompt pipelines, vector embeddings, RAG search, and agent tool calling.
+
+## Engineering Stack
+- Frontend: React 18, TypeScript, Tailwind CSS, Motion / Framer Motion, Lucide Icons, Vite
+- Backend & Runtimes: Node.js, Express, TypeScript, WebSockets (Socket.IO), WebRTC
+- Data & Storage: PostgreSQL, Redis (Pub/Sub & Caching), SQLite WASM
+- Security & Auth: WebAuthn (Passkeys, Biometrics), Argon2id, AES-256-GCM, FIPS 140-3 standards
+- Cloud & Infrastructure: Docker, Serverless Edge (Cloudflare Workers), CI/CD Pipelines
+
+## Team & Leadership
+- Amit Das: Founder & Lead Systems Architect (Distributed systems, WebRTC, TypeScript architectures)
+- Niharika Singh: Design Director & Creative Technologist (Micro-interactions, UI design systems)
+- Ajith K V: Senior Full-Stack & Real-Time Engineer (WebSocket latency, reactive state machines)
+- Mk Hossein: Cloud Infrastructure & Security Lead (CI/CD delivery, serverless cloud, hardened APIs)
+- Jaswant Lohmror: Product Manager (User-centric product strategy & delivery)
+- Amrapali Goswami: UX/UI Designer (Visual design & user experience)
+- Taraknath Karan: Tester & QA Engineer (Quality assurance & system testing)
+
+## Legal & Compliance
+- [Privacy Policy](/privacy-policy): Transparent data collection, processing, and user privacy standards.
+- [Data Security Practices](/data-security-practices): Zero-trust security controls, encryption, and compliance practices (MSME, ISO/IEC 27001 aligned).
+
+## Contact & Inquiries
+- Email: blueorbitdevs@gmail.com
+- GitHub: https://github.com/blueorbitdevs
+- LinkedIn: https://www.linkedin.com/company/blueorbitdevs
+- YouTube: https://youtube.com/@blueorbitdevs
+- Project Inquiries: [/contact](/contact)

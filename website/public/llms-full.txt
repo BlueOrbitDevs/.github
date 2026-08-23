@@ -1,0 +1,97 @@
+# BlueOrbit Devs — Full Documentation for LLMs
+
+> Comprehensive technical, product, architectural, and organizational documentation for BlueOrbit Devs.
+
+## 1. Brand & Organization Overview
+- **Name**: BlueOrbit Devs
+- **Tagline**: Creative Engineering for Ambitious Ideas
+- **Mission**: Building high-performance web applications, distributed real-time sync systems, zero-trust cryptographic security products, and developer tooling.
+- **Contact**: blueorbitdevs@gmail.com
+- **Website**: https://blueorbitdevs.com
+- **GitHub**: https://github.com/blueorbitdevs
+- **LinkedIn**: https://www.linkedin.com/company/blueorbitdevs
+- **YouTube**: https://youtube.com/@blueorbitdevs
+
+---
+
+## 2. Core Products & Showcase
+
+### 2.1 CoupleFlix
+- **Category**: Entertainment / Real-Time Collaboration / WebRTC
+- **Status**: Live & Open Beta
+- **Live URL**: https://coupleflix.in
+- **Summary**: Synchronized cinema and watch-together platform designed for sub-50ms audio/video sync across continents.
+- **Key Features**:
+  - Peer-to-peer WebRTC mesh data channels with sub-50ms playback synchronization.
+  - Floating video & spatial voice bubbles for immersive watch parties.
+  - Interactive timestamped reactions and synchronized emoji drops.
+  - Adaptive bitrate streaming optimized for low-bandwidth mobile devices.
+- **Tech Stack**: WebRTC Mesh, TypeScript, Node.js, Redis Pub/Sub, Tailwind CSS, Web Audio API.
+
+### 2.2 SecureAuth
+- **Category**: Security / Authentication / Zero-Trust
+- **Status**: Production Ready
+- **Live URL**: https://secureauth.govt.hu
+- **Summary**: Zero-Trust authentication and identity vault built for simplicity, biometric Passkeys, and instant TOTP generation.
+- **Key Features**:
+  - Hardware-backed WebAuthn (Touch ID, Face ID, YubiKey) biometric passkeys.
+  - Encrypted TOTP vault with cloud backup and QR provisioning.
+  - Real-time anomaly risk detection engine with GeoIP telemetry.
+  - Drop-in developer SDK (< 4.2 kB gzipped) for React, Vue, and vanilla JS.
+- **Tech Stack**: WebAuthn, Argon2id, PostgreSQL, Node.js Express, TypeScript, Docker.
+
+---
+
+## 3. Engineering Capabilities & Services
+
+### 3.1 Product Strategy & Architecture
+- Deliverables: System Architecture Blueprints, Tech Stack Evaluation, MVP Roadmapping, Data Flow Modeling.
+
+### 3.2 UI/UX Engineering & Design Systems
+- Deliverables: Custom Design Systems, Motion & Micro-interactions, WCAG AA Accessibility, Component Kits.
+
+### 3.3 Modern Web Application Development
+- Deliverables: Single-Page & Server-Side Rendered Applications, Sub-second Speeds, State Machines, Interactive Dashboards.
+
+### 3.4 Backend & High-Throughput APIs
+- Deliverables: REST, GraphQL, & gRPC APIs, Database Optimization, JWT / OAuth2 / WebAuthn Auth, Webhook Infrastructures.
+
+### 3.5 Real-Time & Collaborative Systems
+- Deliverables: WebSockets (Socket.IO), WebRTC Voice/Video, Multiplayer Cursor & Canvas Sync, CRDT Synchronization.
+
+### 3.6 Cloud Infrastructure & DevOps
+- Deliverables: Docker & Container Orchestration, AWS / Cloudflare Edge Setup, Automated CI/CD Workflows, Observability.
+
+### 3.7 Workflow & Process Automation
+- Deliverables: BullMQ & Redis Job Queues, Third-Party Webhooks, Media Transcoding Pipelines, Scheduled Cron Tasks.
+
+### 3.8 AI & Intelligent Product Integrations
+- Deliverables: LLM Prompt Orchestration, Vector Embeddings & RAG Search, Automated Categorization, Agent Tool Calling.
+
+---
+
+## 4. Technical Architecture & Stack
+
+- **Client Runtime**: React 18, TypeScript, Tailwind CSS, Motion/Framer Motion, Lucide Icons, Vite
+- **Server Runtime**: Node.js, Express, TypeScript, WebSocket Engine, WebRTC Data Channels
+- **Database & State**: PostgreSQL, Redis Pub/Sub & Key-Value Caching, IndexedDB / SQLite WASM
+- **Cryptography & Security**: AES-256-GCM, Argon2id, WebCrypto API, FIPS 140-3 Standard
+- **Deployment & Cloud**: Containerized Docker microservices, Cloudflare Workers edge compute, GitHub Actions CI/CD
+
+---
+
+## 5. Team & Leadership
+
+- **Amit Das**: Founder & Lead Systems Architect — Distributed systems, WebRTC protocols, TypeScript architectures.
+- **Niharika Singh**: Design Director & Creative Technologist — Micro-interactions, visual systems, UX polish.
+- **Ajith K V**: Senior Full-Stack & Real-Time Engineer — Sub-50ms WebSocket latency, reactive state machines.
+- **Mk Hossein**: Cloud Infrastructure & Security Lead — Serverless cloud architectures, automated CI/CD, hardened APIs.
+- **Jaswant Lohmror**: Product Manager — User-centric product strategy and execution.
+- **Amrapali Goswami**: UX/UI Designer — Interface design, usability, and design systems.
+- **Taraknath Karan**: Tester & QA Engineer — Comprehensive automated and exploratory quality assurance.
+
+---
+
+## 6. Policies & Compliance
+- **Privacy Policy**: [/privacy-policy](/privacy-policy)
+- **Data Security Practices**: [/data-security-practices](/data-security-practices) (MSME, ISO/IEC 27001 aligned, Zero-Trust Encryption)
