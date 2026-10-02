@@ -59,6 +59,62 @@ export const PROJECTS: Project[] = [
     demoUrl: 'https://secureauth.govt.hu',
     url: 'https://secureauth.govt.hu'
   },
+  {
+    id: 'payninja',
+    title: 'PayNinja',
+    subtitle: 'Simple, Secure & Developer-Friendly UPI Payments',
+    category: ['FINTECH', 'PAYMENTS', 'UPI'],
+    description:
+      'A modern UPI payment gateway designed to simplify online payments, payment verification, and transaction management for businesses.',
+    longDescription:
+      'PayNinja provides businesses with a streamlined UPI payment infrastructure featuring payment links, connected merchant accounts, transaction tracking, API-based payments, webhook notifications, sandbox testing, and real-time payment verification. Built with a developer-friendly architecture, PayNinja makes it easier to integrate and manage UPI payments from a single dashboard.',
+    tags: [
+      'UPI',
+      'Node.js',
+      'Express.js',
+      'TypeScript',
+      'MySQL',
+      'REST API'
+    ],
+    accentColor: '#6C5CE7',
+    bgColor: '#F1EFFF',
+    stats: [
+      {
+        label: 'Starting Price',
+        value: '₹199/month'
+      },
+      {
+        label: 'Payment Type',
+        value: 'UPI'
+      },
+      {
+        label: 'API Integration',
+        value: 'REST API'
+      }
+    ],
+    features: [
+      'Generate and manage UPI payment links with ease',
+      'Real-time transaction tracking and payment verification',
+      'Developer-friendly REST API with sandbox and production modes',
+      'Merchant dashboard with connected accounts, analytics, webhooks and payment management'
+    ],
+    techStack: [
+      'Node.js',
+      'Express.js',
+      'TypeScript',
+      'MySQL',
+      'React',
+      'TailwindCSS',
+      'REST API'
+    ],
+    status: 'Live & Production Ready',
+    type: 'developer',
+    icon: 'credit-card',
+    image:
+      './assets/project/payninja.png?auto=format&fit=crop&w=1200&q=80',
+    demoUrl: 'https://www.payninja.tech',
+    url: 'https://www.payninja.tech'
+  }
   /*{
     id: 'phantomgram',
     title: 'PhantomGram',
