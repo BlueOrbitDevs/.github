@@ -114,6 +114,64 @@ export const PROJECTS: Project[] = [
       './assets/project/payninja.png?auto=format&fit=crop&w=1200&q=80',
     demoUrl: 'https://www.payninja.tech',
     url: 'https://www.payninja.tech'
+  },
+  {
+    id: 'notendo',
+    title: 'NoteNDo',
+    subtitle: 'Smart To-Do & Reminder App with WhatsApp Alerts',
+    category: ['PRODUCTIVITY', 'WEB APP', 'REMINDERS'],
+    description:
+      'A modern full-stack task management platform that helps users organize tasks, manage reminders, and receive automated WhatsApp notifications.',
+    longDescription:
+      'NoteNDo is a modern full-stack productivity application built to make task management simple and reliable. Users can create and manage tasks, set date and time-based reminders, attach media, manage their profiles and timezone, and receive automated WhatsApp alerts. Firebase Realtime Database keeps task and user data synchronized, while a background reminder service continuously checks scheduled reminders and sends notifications through the WhatsApp API.',
+    tags: [
+      'React',
+      'Tailwind CSS',
+      'Vite',
+      'Node.js',
+      'Express',
+      'Firebase',
+      'WhatsApp API'
+    ],
+    accentColor: '#FF7043',
+    bgColor: '#FFF3EE',
+    stats: [
+      {
+        label: 'Reminder System',
+        value: 'Automated'
+      },
+      {
+        label: 'Notifications',
+        value: 'WhatsApp'
+      },
+      {
+        label: 'Database',
+        value: 'Firebase'
+      }
+    ],
+    features: [
+      'Create, edit, delete, and complete tasks with descriptions and media attachments',
+      'Schedule smart reminders with timezone-aware date and time management',
+      'Automatically send WhatsApp notifications when scheduled reminders are due',
+      'Real-time task and user data synchronization using Firebase Realtime Database'
+    ],
+    techStack: [
+      'React',
+      'Tailwind CSS',
+      'Vite',
+      'Node.js',
+      'Express',
+      'Firebase Realtime Database',
+      'TextSnap API',
+      'Multer'
+    ],
+    status: 'Live Release',
+    type: 'productivity',
+    icon: 'layout',
+    image:
+      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
+    demoUrl: 'https://excalidraw.com/',
+    url: 'https://excalidraw.com/'
   }
   /*{
     id: 'phantomgram',
@@ -143,35 +201,6 @@ export const PROJECTS: Project[] = [
     image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
     demoUrl: 'https://coupleflix.in',
     url: 'https://coupleflix.in'
-  },
-  {
-    id: 'notendo',
-    title: 'NoteNDo',
-    subtitle: 'Spatial Thinking & Dynamic Action Studio',
-    category: ['PRODUCTIVITY', 'WEB APP', 'COLLABORATION'],
-    description: 'A modern notes and spatial productivity canvas combining markdown documentation, interactive kanban cards, time-blocking calendars, and offline-first CRDT sync.',
-    longDescription: 'NoteNDo reimagines how individuals and product squads brainstorm, plan, and execute. Featuring bi-directional note linking (wikilinks), graph visualization, natural language task scheduling, and sub-10ms local SQLite WASM caching synced via Conflict-free Replicated Data Types (CRDTs).',
-    tags: ['CRDTs', 'IndexedDB', 'React', 'TailwindCSS', 'Canvas'],
-    accentColor: '#FF7043',
-    bgColor: '#FFF3EE',
-    stats: [
-      { label: 'Sync Resolution', value: 'Zero-Conflict' },
-      { label: 'Local Cold Boot', value: '< 80ms' },
-      { label: 'Keyboard Shortcuts', value: '60+ Bindings' }
-    ],
-    features: [
-      'Bi-directional graph view connecting linked ideas and meeting notes',
-      'Offline-first architecture with instant sync upon network reconnect',
-      'Markdown + WYSIWYG hybrid editor with Slash commands & code snippets',
-      'Integrated natural language task parsing with calendar auto-scheduling'
-    ],
-    techStack: ['React', 'Yjs CRDT', 'TypeScript', 'Web Workers', 'TailwindCSS'],
-    status: 'Live Release',
-    type: 'productivity',
-    icon: 'layout',
-    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80',
-    demoUrl: 'https://excalidraw.com',
-    url: 'https://excalidraw.com'
   },
   {
     id: 'textsnap',
